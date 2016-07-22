@@ -55,3 +55,7 @@ fabric.properties
 
 # Node
 node_modules
+
+# dnpMD-Editor specific
+/editor/dnpMD-Editor/dist
+/editor/dnpMD-Editor/packaged-app
