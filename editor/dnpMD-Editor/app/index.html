@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html ng-app="tutorialApp">
-  <head>
+<head>
     <meta charset="UTF-8">
-      <title>Hello World!</title>
-      <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
-      <script type="text/javascript" src="app.js"></script>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <title>Hello World!</title>
 
-    <table class="table" ng-controller="ArticlesCtrl">
-        <tr ng-repeat="article in articles">
-            <td>{{article.id}}</td>
-            <td>{{article.name}}</td>
-            <td>{{article.price}}</td>
-        </tr>
-    </table>
-  </body>
+    <link rel="stylesheet" type="text/css" href="../assets/photon/css/photon.css">
+    <link rel="stylesheet" type="text/css" href="../assets/app/app.css">
 
-  <!--<script>
-    // You can also require other files to run in this process
-    // This file is required by the index.html file and will
-    // be executed in the renderer process for that window.
-    // All of the Node.js APIs are available in this process.
-  </script>-->
+    <script type="text/javascript" src="../node_modules/angular/angular.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+
+<body>
+<div class="window">
+    <div class="window-content">
+        <div class="pane-group">
+            <div class="pane">...</div>
+            <div class="pane">
+                <table class="table" ng-controller="ArticlesCtrl">
+                    <tr ng-repeat="article in articles">
+                        <td>{{article.id}}</td>
+                        <td>{{article.name}}</td>
+                        <td>{{article.price}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="pane-right">...</div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<!--<script>
+  // You can also require other files to run in this process
+  // This file is required by the index.html file and will
+  // be executed in the renderer process for that window.
+  // All of the Node.js APIs are available in this process.
+</script>-->
 </html>
