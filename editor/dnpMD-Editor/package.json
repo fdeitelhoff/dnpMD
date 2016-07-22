@@ -1,14 +1,20 @@
 {
   "name": "dnpMD-Editor",
   "version": "0.0.1",
-  "description": "",
-  "main": "main.js",
+  "description": "Test",
+  "main": "app/main.js",
   "scripts": {
     "start": "electron ."
   },
-  "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fdeitelhoff/dnpMD"
+  },
+  "dependencies": {
+    "angular": "^1.5.7"
+  },
   "devDependencies": {
     "electron-prebuilt": "^1.2.8"
   }
