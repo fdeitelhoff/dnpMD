@@ -25,7 +25,9 @@ gulp.task('private:copy-app-main-file', function(){
 
 gulp.task('private:copy-app-files', function(){
     return gulp.src('src/app/**/*')
-        .pipe(gulp.dest('dist/app'));
+        .pipe(gulp.dest('dist/app')) && gulp.src('src/controller/**/*')
+            .pipe(gulp.dest('dist/app/controller')) && gulp.src('src/services/**/*')
+            .pipe(gulp.dest('dist/app/services'));
 });
 
 gulp.task('private:copy-css-files', function(){
@@ -42,6 +44,8 @@ gulp.task('private:build-html', function(){
     var sources = gulp.src([
         'dist/lib/angular/angular.js',
         'dist/lib/ace/ace.js',
+        'dist/lib/ui-ace/ui-ace.js',
+        //'dist/lib/require/require.js',
         'dist/app/**/*.js',
         'dist/lib/photon/css/photon.css',
         'dist/css/**/*.css']);
@@ -51,7 +55,7 @@ gulp.task('private:build-html', function(){
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('dev:test-electron', function(){
+gulp.task('private:test-electron', function(){
     gulp.src("dist").pipe(runElectron());
 });
 
@@ -68,6 +72,19 @@ gulp.task('private:package-app', function(){
     platforms.map(function(p){
         buildApp(p.platform, p.slug);
     });
+});
+
+gulp.task('test-electron', function(done){
+    gulpSequence(
+        'private:clean',
+        'private:copy-app-package-file',
+        'private:copy-app-main-file',
+        'private:copy-libs',
+        'private:copy-app-files',
+        'private:copy-css-files',
+        'private:build-html',
+        'private:test-electron',
+        done);
 });
 
 gulp.task('default', function(done){

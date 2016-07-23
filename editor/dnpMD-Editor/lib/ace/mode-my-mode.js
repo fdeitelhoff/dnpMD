@@ -4,10 +4,10 @@ ace.define('ace/mode/my-mode',["require","exports","module","ace/lib/oop","ace/m
     var TextHighlightRules = require("ace/mode/text_highlight_rules").TextHighlightRules;
 
     var MyHighlightRules = function() {
-        /*var keywordMapper = this.createKeywordMapper({
+        var keywordMapper = this.createKeywordMapper({
             "keyword.subheadline": "if|then|else",
             "keyword.operator": "and|or|not"
-        }, "identifier");*/
+        }, "identifier");
         this.$rules = {
             "start": [
                 { token : "comment", regex : "//" },
@@ -18,9 +18,9 @@ ace.define('ace/mode/my-mode',["require","exports","module","ace/lib/oop","ace/m
                 { token : "punctuation.operator", regex : "\\?|\\:|\\,|\\;|\\." },
                 { token : "paren.lparen", regex : "[[({]" },
                 { token : "paren.rparen", regex : "[\\])}]" },
-                //{ token : "text", regex : "\\s+" },
-                { token : "dachzeile", regex : "##.*?##" }
-               // { token: keywordMapper, regex: "[a-zA-Z_$][a-zA-Z0-9_$]*\\b" }
+                { token : "text", regex : "\\s+" },
+                { token : "dachzeile", regex : "##.*?##" },
+                { token: keywordMapper, regex: "[a-zA-Z_$][a-zA-Z0-9_$]*\\b" }
             ]
         };
     };
