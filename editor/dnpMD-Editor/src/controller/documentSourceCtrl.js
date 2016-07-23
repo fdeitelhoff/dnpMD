@@ -1,7 +1,7 @@
-app.controller('DocumentSourceCtrl', function($scope, documentService) {
+app.controller('DocumentSourceCtrl', function($scope, dnpMDService) {
 
     $scope.documentChanged = function () {
-        documentService.setTest($scope.documentSource);
+        dnpMDService.setTest($scope.documentSource);
     };
 
 });

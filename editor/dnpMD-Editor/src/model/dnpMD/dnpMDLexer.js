@@ -1,4 +1,4 @@
-// Generated from E:/Git/dnpMD/language/src/de/twainsoft/dnpMD/grammar\dnpMDLexer.g4 by ANTLR 4.5.3
+// Generated from E:/Git/dnpMD/language/dnpMD-Language/src/de/twainsoft/dnpMD/grammar\dnpMDLexer.g4 by ANTLR 4.5.3
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 
@@ -230,5 +230,5 @@ dnpMDLexer.grammarFileName = "dnpMDLexer.g4";
 
 
 
-module.exports.dnpMDLexer = dnpMDLexer;
+exports.dnpMDLexer = dnpMDLexer;
 

@@ -19,8 +19,7 @@
                 <div id="editor" ui-ace="{mode: 'my-mode', theme: 'monokai', onChange: documentChanged}"
                      ng-model="documentSource"></div>
             </div>
-            <div class="pane" ng-controller="DocumentRenderCtrl">{{test}}
-            </div>
+            <div class="pane" ng-controller="DocumentRenderCtrl" ng-bind-html="test"></div>
             <div class="pane-right">...</div>
         </div>
     </div>

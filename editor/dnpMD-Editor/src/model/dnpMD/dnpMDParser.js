@@ -1,6 +1,7 @@
-// Generated from E:/Git/dnpMD/language/src/de/twainsoft/dnpMD/grammar\dnpMDParser.g4 by ANTLR 4.5.3
+// Generated from E:/Git/dnpMD/language/dnpMD-Language/src/de/twainsoft/dnpMD/grammar\dnpMDParser.g4 by ANTLR 4.5.3
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
+var dnpMDParserListener = require('./dnpMDParserListener').dnpMDParserListener;
 var dnpMDParserVisitor = require('./dnpMDParserVisitor').dnpMDParserVisitor;
 
 var grammarFileName = "dnpMDParser.g4";
@@ -238,6 +239,18 @@ DnpMDContext.prototype.tail = function() {
     return this.getTypedRuleContext(TailContext,0);
 };
 
+DnpMDContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterDnpMD(this);
+	}
+};
+
+DnpMDContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitDnpMD(this);
+	}
+};
+
 DnpMDContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitDnpMD(this);
@@ -311,6 +324,18 @@ HeadContext.prototype.lead = function() {
     return this.getTypedRuleContext(LeadContext,0);
 };
 
+HeadContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterHead(this);
+	}
+};
+
+HeadContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitHead(this);
+	}
+};
+
 HeadContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitHead(this);
@@ -381,6 +406,18 @@ SubheadlineContext.prototype.NL = function(i) {
     }
 };
 
+
+SubheadlineContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterSubheadline(this);
+	}
+};
+
+SubheadlineContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitSubheadline(this);
+	}
+};
 
 SubheadlineContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
@@ -460,6 +497,18 @@ HeadlineContext.prototype.NL = function(i) {
 };
 
 
+HeadlineContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterHeadline(this);
+	}
+};
+
+HeadlineContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitHeadline(this);
+	}
+};
+
 HeadlineContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitHeadline(this);
@@ -526,6 +575,18 @@ LeadContext.prototype.LEAD = function() {
     return this.getToken(dnpMDParser.LEAD, 0);
 };
 
+LeadContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterLead(this);
+	}
+};
+
+LeadContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitLead(this);
+	}
+};
+
 LeadContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitLead(this);
@@ -581,6 +642,18 @@ SubheadingContext.prototype.SUBHEADING = function() {
     return this.getToken(dnpMDParser.SUBHEADING, 0);
 };
 
+SubheadingContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterSubheading(this);
+	}
+};
+
+SubheadingContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitSubheading(this);
+	}
+};
+
 SubheadingContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitSubheading(this);
@@ -634,6 +707,18 @@ CaptionContext.prototype.constructor = CaptionContext;
 
 CaptionContext.prototype.CAPTION = function() {
     return this.getToken(dnpMDParser.CAPTION, 0);
+};
+
+CaptionContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterCaption(this);
+	}
+};
+
+CaptionContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitCaption(this);
+	}
 };
 
 CaptionContext.prototype.accept = function(visitor) {
@@ -713,6 +798,18 @@ ListingContext.prototype.listingPath = function() {
 
 ListingContext.prototype.label = function() {
     return this.getTypedRuleContext(LabelContext,0);
+};
+
+ListingContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterListing(this);
+	}
+};
+
+ListingContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitListing(this);
+	}
 };
 
 ListingContext.prototype.accept = function(visitor) {
@@ -814,6 +911,18 @@ ImageContext.prototype.imagePath = function() {
     return this.getTypedRuleContext(ImagePathContext,0);
 };
 
+ImageContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterImage(this);
+	}
+};
+
+ImageContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitImage(this);
+	}
+};
+
 ImageContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitImage(this);
@@ -889,6 +998,18 @@ ListingPathContext.prototype.ELEMENTPATH = function() {
     return this.getToken(dnpMDParser.ELEMENTPATH, 0);
 };
 
+ListingPathContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterListingPath(this);
+	}
+};
+
+ListingPathContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitListingPath(this);
+	}
+};
+
 ListingPathContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitListingPath(this);
@@ -942,6 +1063,18 @@ ImagePathContext.prototype.constructor = ImagePathContext;
 
 ImagePathContext.prototype.ELEMENTPATH = function() {
     return this.getToken(dnpMDParser.ELEMENTPATH, 0);
+};
+
+ImagePathContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterImagePath(this);
+	}
+};
+
+ImagePathContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitImagePath(this);
+	}
 };
 
 ImagePathContext.prototype.accept = function(visitor) {
@@ -999,6 +1132,18 @@ LabelRefContext.prototype.LABELREF = function() {
     return this.getToken(dnpMDParser.LABELREF, 0);
 };
 
+LabelRefContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterLabelRef(this);
+	}
+};
+
+LabelRefContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitLabelRef(this);
+	}
+};
+
 LabelRefContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitLabelRef(this);
@@ -1054,6 +1199,18 @@ LabelContext.prototype.LABEL = function() {
     return this.getToken(dnpMDParser.LABEL, 0);
 };
 
+LabelContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterLabel(this);
+	}
+};
+
+LabelContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitLabel(this);
+	}
+};
+
 LabelContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitLabel(this);
@@ -1107,6 +1264,18 @@ ItalicContext.prototype.constructor = ItalicContext;
 
 ItalicContext.prototype.ITALIC = function() {
     return this.getToken(dnpMDParser.ITALIC, 0);
+};
+
+ItalicContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterItalic(this);
+	}
+};
+
+ItalicContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitItalic(this);
+	}
 };
 
 ItalicContext.prototype.accept = function(visitor) {
@@ -1194,6 +1363,18 @@ ParagraphContext.prototype.LABEL = function() {
 
 ParagraphContext.prototype.ELEMENTPATH = function() {
     return this.getToken(dnpMDParser.ELEMENTPATH, 0);
+};
+
+ParagraphContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterParagraph(this);
+	}
+};
+
+ParagraphContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitParagraph(this);
+	}
 };
 
 ParagraphContext.prototype.accept = function(visitor) {
@@ -1379,6 +1560,18 @@ NewlinesContext.prototype.NL = function(i) {
 };
 
 
+NewlinesContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterNewlines(this);
+	}
+};
+
+NewlinesContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitNewlines(this);
+	}
+};
+
 NewlinesContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitNewlines(this);
@@ -1453,6 +1646,18 @@ BodyContext.prototype.bodyElements = function(i) {
     } else {
         return this.getTypedRuleContext(BodyElementsContext,i);
     }
+};
+
+BodyContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterBody(this);
+	}
+};
+
+BodyContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitBody(this);
+	}
 };
 
 BodyContext.prototype.accept = function(visitor) {
@@ -1533,6 +1738,18 @@ BodyElementsContext.prototype.image = function() {
 
 BodyElementsContext.prototype.newlines = function() {
     return this.getTypedRuleContext(NewlinesContext,0);
+};
+
+BodyElementsContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterBodyElements(this);
+	}
+};
+
+BodyElementsContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitBodyElements(this);
+	}
 };
 
 BodyElementsContext.prototype.accept = function(visitor) {
@@ -1649,6 +1866,18 @@ TailContext.prototype.literatureEntries = function(i) {
     }
 };
 
+TailContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterTail(this);
+	}
+};
+
+TailContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitTail(this);
+	}
+};
+
 TailContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitTail(this);
@@ -1747,6 +1976,18 @@ LiteratureEntriesContext.prototype.NL = function(i) {
 };
 
 
+LiteratureEntriesContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterLiteratureEntries(this);
+	}
+};
+
+LiteratureEntriesContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitLiteratureEntries(this);
+	}
+};
+
 LiteratureEntriesContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitLiteratureEntries(this);
@@ -1824,6 +2065,18 @@ AuthorBioContext.prototype.AUTHOR_BIO = function() {
     return this.getToken(dnpMDParser.AUTHOR_BIO, 0);
 };
 
+AuthorBioContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterAuthorBio(this);
+	}
+};
+
+AuthorBioContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitAuthorBio(this);
+	}
+};
+
 AuthorBioContext.prototype.accept = function(visitor) {
     if ( visitor instanceof dnpMDParserVisitor ) {
         return visitor.visitAuthorBio(this);
@@ -1881,6 +2134,18 @@ LiteratureEntryContext.prototype.LABEL = function() {
 
 LiteratureEntryContext.prototype.LITERATURE_CONTENT = function() {
     return this.getToken(dnpMDParser.LITERATURE_CONTENT, 0);
+};
+
+LiteratureEntryContext.prototype.enterRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.enterLiteratureEntry(this);
+	}
+};
+
+LiteratureEntryContext.prototype.exitRule = function(listener) {
+    if(listener instanceof dnpMDParserListener ) {
+        listener.exitLiteratureEntry(this);
+	}
 };
 
 LiteratureEntryContext.prototype.accept = function(visitor) {
