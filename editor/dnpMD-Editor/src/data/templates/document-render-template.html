@@ -1,0 +1,17 @@
+<!-- Document -->
+<div class="document">
+
+    <!-- Head section -->
+    <div class="head">
+        <div ng-repeat="headElement in documentRendered.headElements">
+            <div class="{{headElement.cssClass}}">{{headElement.content}}</div>
+        </div>
+    </div>
+
+    <!-- Body section -->
+    <div class="body">
+        <div ng-repeat="paragraph in documentRendered.paragraphs">
+            <div class="{{paragraph.cssClass}}">{{paragraph.content}}</div>
+        </div>
+    </div>
+</div>

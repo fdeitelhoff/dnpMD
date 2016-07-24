@@ -16,10 +16,13 @@
     <div class="window-content">
         <div class="pane-group">
             <div class="pane" ng-controller="DocumentSourceCtrl">
-                <div id="editor" ui-ace="{mode: 'my-mode', theme: 'monokai', onChange: documentChanged}"
+                <div id="editor" ui-ace="{mode: 'my-mode', theme: 'monokai', useWrapMode : true,
+                 onChange: documentChanged}"
                      ng-model="documentSource"></div>
             </div>
-            <div class="pane" ng-controller="DocumentRenderCtrl" ng-bind-html="test"></div>
+            <div class="pane" ng-controller="DocumentRenderCtrl">
+                <ng-include src="documentRenderTemplate"></ng-include>
+            </div>
             <div class="pane-right">...</div>
         </div>
     </div>

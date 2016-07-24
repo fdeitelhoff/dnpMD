@@ -1,6 +1,12 @@
 app.controller('DocumentRenderCtrl', function($scope, dnpMDService) {
-    dnpMDService.documentChanged = function() {
-        $scope.test = dnpMDService.render.subheadline;
-        console.log("Aus render ctrl: " + dnpMDService.render);
+    $scope.documentRenderTemplate = "app/data/templates/document-render-template.html";
+
+    //var documentRendered = {};
+
+    dnpMDService.parsingCompleted = function(document) {
+        //console.log("Aus render ctrl: " + document); //dnpMDService.render);
+        //documentRendered = document;
+
+        $scope.documentRendered = document;
     }
 });

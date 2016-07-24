@@ -24,16 +24,16 @@ gulp.task('private:copy-app-main-file', function(){
 });
 
 gulp.task('private:copy-app-files', function(){
-    return gulp.src('src/app/**/*')
-        .pipe(gulp.dest('dist/app')) && gulp.src('src/controller/**/*')
-            .pipe(gulp.dest('dist/app/controller')) && gulp.src('src/services/**/*')
-            .pipe(gulp.dest('dist/app/services')) && gulp.src('src/model/**/*')
-            .pipe(gulp.dest('dist/app/model'));
+    return gulp.src('src/app/**/*').pipe(gulp.dest('dist/app'))
+        && gulp.src('src/controller/**/*').pipe(gulp.dest('dist/app/controller'))
+        && gulp.src('src/services/**/*').pipe(gulp.dest('dist/app/services'))
+        && gulp.src('src/model/**/*').pipe(gulp.dest('dist/app/model'))
+        && gulp.src('src/data/**/*').pipe(gulp.dest('dist/app/data'));
 });
 
 gulp.task('private:copy-css-files', function(){
     return gulp.src('src/css/**/*')
-        .pipe(gulp.dest('dist/css'));
+        .pipe(gulp.dest('dist/app/css'));
 });
 
 gulp.task('private:copy-libs', function(){
@@ -51,7 +51,7 @@ gulp.task('private:build-html', function(){
         'dist/app/controller/*.js',
         'dist/app/services/*.js',
         'dist/lib/photon/css/photon.css',
-        'dist/css/**/*.css']);
+        'dist/app/css/**/*.css']);
 
     return gulp.src('src/index.html')
         .pipe(inject(sources, {ignorePath: 'dist',  addRootSlash: false}))

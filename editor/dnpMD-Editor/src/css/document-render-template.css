@@ -1,0 +1,28 @@
+.document {
+    background-color: lightgray;
+}
+
+.head {
+    border: 1px solid black;
+}
+
+.body {
+
+}
+
+.subheadline {
+    font-size: smaller;
+}
+
+.headline {
+    font-size: large;
+}
+
+.lead {
+    font-size: larger;
+}
+
+.paragraph {
+    margin-top: 5px;
+    text-indent: 25px;
+}
