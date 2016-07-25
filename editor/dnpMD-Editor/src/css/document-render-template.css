@@ -3,7 +3,7 @@
 }
 
 .head {
-    border: 1px solid black;
+    /*border: 1px solid black;*/
 }
 
 .body {
@@ -11,18 +11,24 @@
 }
 
 .subheadline {
-    font-size: smaller;
+    font-size: medium;
 }
 
 .headline {
-    font-size: large;
+    font-size: xx-large;
 }
 
 .lead {
-    font-size: larger;
+    font-size: large;
 }
 
 .paragraph {
     margin-top: 5px;
     text-indent: 25px;
+}
+
+.subheading {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-size: x-large;
 }

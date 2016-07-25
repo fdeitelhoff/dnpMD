@@ -1,11 +1,12 @@
 lexer grammar dnpMDLexer;
 
 channels {
-    COMMENTS
+    COMMENTS,
+    NEWLINES
 }
 
 NL
-    : [\r\n]
+    : [\r\n] -> channel(NEWLINES)
     ;
 
 SUBHEADLINE

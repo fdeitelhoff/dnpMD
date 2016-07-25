@@ -23,11 +23,9 @@ dnpMDTreeListener.prototype.constructor = dnpMDTreeListener;
 
 dnpMDTreeListener.prototype.enterDnpMD = function() {
     this.documentElements = {};
-    this.documentElements.paragraphs = [];
 };
 
 dnpMDTreeListener.prototype.exitDnpMD = function() {
-    //console.log("dnp: " + ctx);
     this.documentCompleted(this.documentElements);
 };
 
@@ -35,45 +33,56 @@ dnpMDTreeListener.prototype.enterHead = function() {
     this.documentElements.headElements = [];
 }
 
-dnpMDTreeListener.prototype.exitHead = function(ctx) {
-    //console.log("Head: " + ctx.getText());
-}
-
 dnpMDTreeListener.prototype.exitSubheadline = function(ctx) {
-    //console.log("Subheadline: " + ctx.getText());
-    //if (ctx.getText() !== "")
-    this.documentElements.headElements.push({ content: this.getText(ctx), cssClass: "subheadline" });
+    var content = this.getText(ctx);
 
-        //this.documentElements.subheadline = ctx.getText().replace("#", '').trim();
+    if (content != "") {
+        this.documentElements.headElements.push({content: content, cssClass: "subheadline"});
+    }
 }
 
 dnpMDTreeListener.prototype.exitHeadline = function(ctx) {
-    //console.log("Headline: " + ctx.getText());,
-    /*if (ctx.getText() !== "")
-        this.documentElements.headline = ctx.getText().replace("#", '').trim();*/
-    this.documentElements.headElements.push({ content: this.getText(ctx), cssClass: "headline" });
+    var content = this.getText(ctx);
+
+    if (content != "") {
+        this.documentElements.headElements.push({content: content, cssClass: "headline"});
+    }
 }
 
 dnpMDTreeListener.prototype.exitLead = function(ctx) {
-    //console.log("Lead: " + ctx.getText());
-    /*if (ctx.getText() !== "")
-        this.documentElements.lead = ctx.getText().replace("#", '').trim();*/
-    this.documentElements.headElements.push({ content: this.getText(ctx), cssClass: "lead" });
+    var content = this.getText(ctx);
+
+    if (content != "") {
+        this.documentElements.headElements.push({content: content, cssClass: "lead"});
+    }
 }
 
-dnpMDTreeListener.prototype.enterParagraph = function() {
-    //console.log("Para: " + ctx.getText());
-    /*if (ctx.getText() !== "")
-     this.documentElements.lead = ctx.getText().replace("#", '').trim();*/
-    //this.documentElements
-
-}
+dnpMDTreeListener.prototype.enterBody = function() {
+    this.documentElements.bodyElements = [];
+};
 
 dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
-    //console.log("Para: " + ctx.getText());
-    /*if (ctx.getText() !== "")
-        this.documentElements.lead = ctx.getText().replace("#", '').trim();*/
-    this.documentElements.paragraphs.push({ content: this.getText(ctx), cssClass: "paragraph" });
-}
+    var content = this.getText(ctx);
+
+    if (content != "") {
+        this.documentElements.bodyElements.push({content: content, cssClass: "paragraph"});
+    }
+};
+
+dnpMDTreeListener.prototype.exitSubheading = function(ctx) {
+    var content = this.getText(ctx);
+
+    if (content != "") {
+        this.documentElements.bodyElements.push({content: content, cssClass: "subheading"});
+    }
+};
+
+dnpMDTreeListener.prototype.exitListing = function(ctx) {
+    var content = this.getText(ctx);
+
+    if (content != "") {
+        this.documentElements.bodyElements.push({content: content, cssClass: "subheading"});
+    }
+};
 
 module.exports.dnpMDTreeListener = dnpMDTreeListener;

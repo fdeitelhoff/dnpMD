@@ -17,8 +17,7 @@
         <div class="pane-group">
             <div class="pane" ng-controller="DocumentSourceCtrl">
                 <div id="editor" ui-ace="{mode: 'my-mode', theme: 'monokai', useWrapMode : true,
-                 onChange: documentChanged}"
-                     ng-model="documentSource"></div>
+                 onChange: documentChanged}" ng-model="documentSource"></div>
             </div>
             <div class="pane" ng-controller="DocumentRenderCtrl">
                 <ng-include src="documentRenderTemplate"></ng-include>
@@ -26,22 +25,13 @@
             <div class="pane-right">...</div>
         </div>
     </div>
-    <!--<footer class="pane-error">
-        fff
-    </footer>-->
+    <div class="pane-error" ng-controller="ErrorCtrl">
+
+        <div ng-include="'app/views/error/error-overview.html'"></div>
+
+    </div>
 </div>
 
 </body>
 
-<!--<script>
-  // You can also require other files to run in this process
-  // This file is required by the index.html file and will
-  // be executed in the renderer process for that window.
-  // All of the Node.js APIs are available in this process.
-</script>-->
-<script>
-    /*var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/my-mode");*/
-</script>
 </html>

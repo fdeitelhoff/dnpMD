@@ -2,16 +2,16 @@
 <div class="document">
 
     <!-- Head section -->
-    <div class="head">
+    <div class="head" ng-if="documentRendered.headElements.length > 0">
         <div ng-repeat="headElement in documentRendered.headElements">
             <div class="{{headElement.cssClass}}">{{headElement.content}}</div>
         </div>
     </div>
 
     <!-- Body section -->
-    <div class="body">
-        <div ng-repeat="paragraph in documentRendered.paragraphs">
-            <div class="{{paragraph.cssClass}}">{{paragraph.content}}</div>
+    <div class="body" ng-if="documentRendered.bodyElements.length > 0">
+        <div ng-repeat="bodyElement in documentRendered.bodyElements">
+            <p class="{{bodyElement.cssClass}}">{{bodyElement.content}}</p>
         </div>
     </div>
 </div>

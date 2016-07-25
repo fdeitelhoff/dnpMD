@@ -28,6 +28,7 @@ gulp.task('private:copy-app-files', function(){
         && gulp.src('src/controller/**/*').pipe(gulp.dest('dist/app/controller'))
         && gulp.src('src/services/**/*').pipe(gulp.dest('dist/app/services'))
         && gulp.src('src/model/**/*').pipe(gulp.dest('dist/app/model'))
+        && gulp.src('src/views/**/*').pipe(gulp.dest('dist/app/views'))
         && gulp.src('src/data/**/*').pipe(gulp.dest('dist/app/data'));
 });
 
