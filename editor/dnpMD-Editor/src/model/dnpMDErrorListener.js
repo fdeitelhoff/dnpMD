@@ -15,7 +15,7 @@ var dnpMDErrorListener = function() {
 dnpMDErrorListener.prototype = Object.create(antlr4.error.ErrorListener.prototype);
 dnpMDErrorListener.prototype.constructor = dnpMDErrorListener;
 dnpMDErrorListener.prototype.syntaxError = function(rec, sym, line, col, msg, e) {
-    this.errors.push({ message: msg });
+    this.errors.push({ message: msg, line: line, column: col });
 };
 
 module.exports.dnpMDErrorListener = dnpMDErrorListener;
