@@ -87,6 +87,11 @@ dnpMDParserVisitor.prototype.visitParagraph = function(ctx) {
 };
 
 
+// Visit a parse tree produced by dnpMDParser#newlines.
+dnpMDParserVisitor.prototype.visitNewlines = function(ctx) {
+};
+
+
 // Visit a parse tree produced by dnpMDParser#body.
 dnpMDParserVisitor.prototype.visitBody = function(ctx) {
 };

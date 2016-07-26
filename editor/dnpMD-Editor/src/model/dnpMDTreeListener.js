@@ -3,6 +3,8 @@ var dnpMDParserListener = require('./dnpMD/dnpMDParserListener.js').dnpMDParserL
 var dnpMDTreeListener = function() {
     dnpMDParserListener.call(this);
 
+    this.lastParagraph = {content: "", cssClass: "paragraph", added: true};
+
     this.documentCompleted = function() {};
 
     this.getText = function(ctx) {
@@ -23,6 +25,7 @@ dnpMDTreeListener.prototype.constructor = dnpMDTreeListener;
 
 dnpMDTreeListener.prototype.enterDnpMD = function() {
     this.documentElements = {};
+    this.lastParagraph = {content: "", cssClass: "paragraph", added: true};
 };
 
 dnpMDTreeListener.prototype.exitDnpMD = function() {
@@ -62,11 +65,25 @@ dnpMDTreeListener.prototype.enterBody = function() {
 };
 
 dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
-    var content = this.getText(ctx);
+    var text = ctx.getText();
+    var content = "";
+
+    if (text != "" && text != "<missing null>") {
+        content = text;
+    }
 
     if (content != "") {
-        this.documentElements.bodyElements.push({content: content, cssClass: "paragraph"});
+        if (this.lastParagraph.content != "") {
+            this.lastParagraph.content += content;
+        } else {
+            this.lastParagraph = {content: content, cssClass: "paragraph", added: true};
+            this.documentElements.bodyElements.push(this.lastParagraph);
+        }
     }
+};
+
+dnpMDTreeListener.prototype.exitNewlines = function() {
+    this.lastParagraph = {content: "", cssClass: "paragraph", added: true};
 };
 
 dnpMDTreeListener.prototype.exitSubheading = function(ctx) {

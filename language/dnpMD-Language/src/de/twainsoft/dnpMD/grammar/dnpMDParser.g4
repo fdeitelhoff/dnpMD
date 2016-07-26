@@ -11,15 +11,15 @@ head
     ;
 
 subheadline
-    : SUBHEADLINE
+    : SUBHEADLINE NL+
     ;
 
 headline
-    : HEADLINE
+    : HEADLINE NL+
     ;
 
 lead
-    : LEAD
+    : LEAD newlines+
     ;
 
 subheading
@@ -31,11 +31,11 @@ caption
     ;
 
 listing
-    : LISTING (listingPath)? (label)? caption
+    : LISTING (newlines listingPath)? (newlines label)? newlines caption
     ;
 
 image
-    : caption (label)? (imagePath)?
+    : caption (NL label)? (NL imagePath)?
     ;
 
 listingPath
@@ -68,9 +68,9 @@ paragraph
     | TEXT
     ;
 
-//newlines
-//    : NL+
-//    ;
+newlines
+    : NL+
+    ;
 
 body
     : bodyElements+
@@ -82,15 +82,15 @@ bodyElements
     | subheading
     | listing
     | image
-    //| newlines
+    | newlines
     ;
 
 tail
-    : TAIL (authorBio)? (literatureEntries*)?
+    : TAIL newlines (authorBio)? (newlines literatureEntries*)?
     ;
 
 literatureEntries
-    : literatureEntry
+    : literatureEntry (NL+ | EOF)
     ;
 
 authorBio
