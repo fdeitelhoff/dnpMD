@@ -1,4 +1,4 @@
-app.service('dnpMDService', function() {
+app.service('dnpMDService', function($rootScope) {
     this.text = "";
     this.errors = [];
     this.documentOutline = {};
@@ -18,11 +18,10 @@ app.service('dnpMDService', function() {
         self.documentOutline = documentElements;
         self.errors = self.errorListener.errors;
 
-        self.outlineCompleted();
+        $rootScope.$broadcast('outlineCompleted');
         self.documentErrors();
     };
 
-    this.outlineCompleted = function() {};
     this.documentErrors = function() {};
 
     this.parseDocument = function (text) {
