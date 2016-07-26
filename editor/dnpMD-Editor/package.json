@@ -10,7 +10,8 @@
     "url": "https://github.com/fdeitelhoff/dnpMD"
   },
   "dependencies": {
-    "angular": "^1.5.7"
+    "angular": "^1.5.7",
+    "angular-sanitize": "^1.5.8"
   },
   "devDependencies": {
     "del": "^2.2.1",
