@@ -17,3 +17,16 @@
     width: 100%;
     background-color: grey;
 }
+
+.pane-outline {
+    max-height: 50%;
+    min-height: 50%;
+    background-color: lightcoral;
+    overflow-y: auto;
+}
+
+.pane-listings {
+    max-height: 50%;
+    min-height: 50%;
+    background-color: lightgreen;
+}

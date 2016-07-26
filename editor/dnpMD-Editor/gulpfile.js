@@ -39,12 +39,14 @@ gulp.task('private:copy-css-files', function(){
 
 gulp.task('private:copy-libs', function(){
     return gulp.src('lib/**/*').pipe(gulp.dest('dist/lib')) &&
-        gulp.src('./node_modules/angular/**/*').pipe(gulp.dest('dist/lib/angular'));
+        gulp.src('./node_modules/angular/**/*').pipe(gulp.dest('dist/lib/angular'))
+        && gulp.src('./node_modules/angular-sanitize/**/*').pipe(gulp.dest('dist/lib/angular-sanitize'));
 });
 
 gulp.task('private:build-html', function(){
     var sources = gulp.src([
         'dist/lib/angular/angular.js',
+        'dist/lib/angular-sanitize/angular-sanitize.js',
         'dist/lib/ace/ace.js',
         'dist/lib/ui-ace/ui-ace.js',
         //'dist/lib/require/require.js',

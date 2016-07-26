@@ -1,1 +1,1 @@
-var app = angular.module('dnpMDEdit', ['ui.ace']);
+var app = angular.module('dnpMDEdit', ['ui.ace', 'ngSanitize']);

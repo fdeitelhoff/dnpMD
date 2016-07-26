@@ -1,7 +1,7 @@
-app.service('dnpMDService', function() {
+app.service('dnpMDService', function($rootScope) {
     this.text = "";
     this.errors = [];
-    this.renderedDocument = {};
+    this.documentOutline = {};
 
     var antlr4 = require('antlr4/index');
     var dnpMDLexer = require('./app/model/dnpMD/dnpMDLexer.js');
@@ -14,15 +14,14 @@ app.service('dnpMDService', function() {
     this.errorListener = new dnpMDErrorListener.dnpMDErrorListener();
 
     var self = this;
-    treeListener.documentCompleted = function (documentElements) {
-        self.renderedDocument = documentElements;
+    treeListener.processCompleted = function (documentElements) {
+        self.documentOutline = documentElements;
         self.errors = self.errorListener.errors;
 
-        self.parsingCompleted();
+        $rootScope.$broadcast('outlineCompleted');
         self.documentErrors();
     };
 
-    this.parsingCompleted = function() {};
     this.documentErrors = function() {};
 
     this.parseDocument = function (text) {

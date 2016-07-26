@@ -4,14 +4,14 @@
     <!-- Head section -->
     <div class="head" ng-if="documentRendered.headElements.length > 0">
         <div ng-repeat="headElement in documentRendered.headElements">
-            <div class="{{headElement.cssClass}}">{{headElement.content}}</div>
+            <p ng-bind-html="headElement"></p>
         </div>
     </div>
 
     <!-- Body section -->
     <div class="body" ng-if="documentRendered.bodyElements.length > 0">
         <div ng-repeat="bodyElement in documentRendered.bodyElements">
-            <p class="{{bodyElement.cssClass}}">{{bodyElement.content}}</p>
+            <p ng-bind-html="bodyElement"></p>
         </div>
     </div>
 </div>

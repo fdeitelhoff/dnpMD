@@ -3,7 +3,9 @@ var dnpMDParserListener = require('./dnpMD/dnpMDParserListener.js').dnpMDParserL
 var dnpMDTreeListener = function() {
     dnpMDParserListener.call(this);
 
-    this.documentCompleted = function() {};
+    this.lastParagraph = {content: "", children: 0, type: "paragraph"};
+
+    this.processCompleted = function() {};
 
     this.getText = function(ctx) {
         var text = ctx.getText().trim();
@@ -23,10 +25,11 @@ dnpMDTreeListener.prototype.constructor = dnpMDTreeListener;
 
 dnpMDTreeListener.prototype.enterDnpMD = function() {
     this.documentElements = {};
+    this.lastParagraph = {children: 0, type: "paragraph"};
 };
 
 dnpMDTreeListener.prototype.exitDnpMD = function() {
-    this.documentCompleted(this.documentElements);
+    this.processCompleted(this.documentElements);
 };
 
 dnpMDTreeListener.prototype.enterHead = function() {
@@ -37,7 +40,7 @@ dnpMDTreeListener.prototype.exitSubheadline = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.headElements.push({content: content, cssClass: "subheadline"});
+        this.documentElements.headElements.push({content: content, children: 0, type: "subheadline"});
     }
 }
 
@@ -45,7 +48,7 @@ dnpMDTreeListener.prototype.exitHeadline = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.headElements.push({content: content, cssClass: "headline"});
+        this.documentElements.headElements.push({content: content, children: 0, type: "headline"});
     }
 }
 
@@ -53,7 +56,7 @@ dnpMDTreeListener.prototype.exitLead = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.headElements.push({content: content, cssClass: "lead"});
+        this.documentElements.headElements.push({content: content, children: 0, type: "lead"});
     }
 }
 
@@ -62,18 +65,60 @@ dnpMDTreeListener.prototype.enterBody = function() {
 };
 
 dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
-    var content = this.getText(ctx);
+    var children = [];
 
-    if (content != "") {
-        this.documentElements.bodyElements.push({content: content, cssClass: "paragraph"});
+    ctx.children.forEach(function(child) {
+        if (child.ITALIC != undefined) {
+            // Uhm, yes... this needs an update (or better: a fix within the language dnpMD).
+            var text = child.ITALIC().getText().replace('*', '');
+            text = text.split('').reverse().join('').replace('*', '').split('').reverse().join('');
+            var content = "";
+
+            if (text != "" && text != "<missing null>") {
+                content = text;
+            }
+
+            children.push({content: content, type: "italic"});
+        } else if (child.LABELREF != undefined) {
+            var text = child.LABELREF().getText();
+            var content = "";
+
+            if (text != "" && text != "<missing null>") {
+                content = text;
+            }
+
+            children.push({content: content, type: "labelRef"});
+        } else {
+            var text = child.getText();
+            var content = "";
+
+            if (text != "" && text != "<missing null>") {
+                content = text;
+            }
+
+            children.push({content: content, type: "text"});
+        }
+    });
+
+    if (children.length > 0) {
+        if (this.lastParagraph.children.length > 0) {
+            this.lastParagraph.children = this.lastParagraph.children.concat(children);
+        } else {
+            this.lastParagraph = {children: children, type: "paragraph"};
+            this.documentElements.bodyElements.push(this.lastParagraph);
+        }
     }
+};
+
+dnpMDTreeListener.prototype.exitNewlines = function() {
+    this.lastParagraph = {children: 0, type: "paragraph"};
 };
 
 dnpMDTreeListener.prototype.exitSubheading = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.bodyElements.push({content: content, cssClass: "subheading"});
+        this.documentElements.bodyElements.push({content: content, children: 0, type: "subheading"})
     }
 };
 
@@ -81,7 +126,7 @@ dnpMDTreeListener.prototype.exitListing = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.bodyElements.push({content: content, cssClass: "subheading"});
+        this.documentElements.bodyElements.push({content: content, children: 0, type: "listing"})
     }
 };
 
