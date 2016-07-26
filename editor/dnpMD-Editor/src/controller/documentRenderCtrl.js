@@ -5,9 +5,10 @@ app.controller('DocumentRenderCtrl', function($scope, dnpMDService) {
 
     $scope.documentRenderTemplate = "app/data/templates/document-render-template.html";
 
-    dnpMDService.outlineCompleted = function() {
+    // Just a test. Not sure if this is a valid way...
+    $scope.$on('outlineCompleted', function (event) {
         transformToHTML.transform(dnpMDService.documentOutline);
 
         $scope.documentRendered = transformToHTML.renderedDocument;
-    }
+    });
 });

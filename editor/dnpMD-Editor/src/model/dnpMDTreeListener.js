@@ -69,7 +69,7 @@ dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
 
     ctx.children.forEach(function(child) {
         if (child.ITALIC != undefined) {
-            // Uhm, yes... that needs an update (or better: a fix within the language dnpMD).
+            // Uhm, yes... this needs an update (or better: a fix within the language dnpMD).
             var text = child.ITALIC().getText().replace('*', '');
             text = text.split('').reverse().join('').replace('*', '').split('').reverse().join('');
             var content = "";
