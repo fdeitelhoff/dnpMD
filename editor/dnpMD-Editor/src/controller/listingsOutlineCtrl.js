@@ -1,8 +1,8 @@
-app.controller('DocumentOutlineCtrl', function($scope, dnpMDService) {
+app.controller('ListingsOutlineCtrl', function($scope, dnpMDService) {
 
     // Just a test. Not sure if this is a valid way...
-    $scope.$on('outlineCompleted', function (event) {
-        $outline = [];
+    $scope.$on('outlineCompleted', function () {
+        /*$outline = [];
 
         // Maybe into another js file?
         // Maybe those arrays are mergable?
@@ -20,18 +20,12 @@ app.controller('DocumentOutlineCtrl', function($scope, dnpMDService) {
 
                 $outline.push({id: element.id, content: (content.length > 20) ? content.substr(0,20-1)+'&hellip;' : content, type: element.type});
             } else if (element.type == "listing") {
-                var content = "";
-
-                if (element.elements.caption != undefined) {
-                    content = element.elements.caption.content;
-                }
-
-                $outline.push({id: element.id, content: content, type: element.type});
+                $outline.push({id: element.id, content: element.elements.caption.content, type: element.type});
             } else {
                 $outline.push({id: element.id, content: element.content, type: element.type});
             }
-        });
+        });*/
 
-        $scope.documentOutline = $outline;
+        $scope.listingsOutline = dnpMDService.listings;
     });
 });

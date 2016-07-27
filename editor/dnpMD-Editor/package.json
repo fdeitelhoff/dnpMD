@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "angular": "^1.5.7",
-    "angular-sanitize": "^1.5.8"
+    "angular-sanitize": "^1.5.8",
+    "line-by-line": "^0.1.5",
+    "node-uuid": "^1.4.7"
   },
   "devDependencies": {
     "del": "^2.2.1",

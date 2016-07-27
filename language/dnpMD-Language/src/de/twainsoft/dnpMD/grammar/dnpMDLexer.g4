@@ -5,7 +5,7 @@ channels {
 }
 
 NL
-    : [\r\n]
+    : '\r'? '\n' //[\r\n]
     ;
 
 SUBHEADLINE
