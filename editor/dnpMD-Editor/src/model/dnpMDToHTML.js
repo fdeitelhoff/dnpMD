@@ -87,6 +87,26 @@ dnpMDToHTML.prototype.transform = function(documentOutline, labels) {
             }
 
             html += "</div>";
+
+        } else if (element.type == "image") {
+            var number = "";
+
+            if (element.elements.label != undefined) {
+                var label = self.labels.images[element.elements.label.content];
+                number = "Abbildung: " + label.number;
+            }
+
+            html = "<div class='image'>";
+
+            if (element.elements.path != undefined) {
+                html += "<img src=" + element.elements.path.content + " />";
+            }
+
+            if (element.elements.caption != undefined) {
+                html += "<h5 class='image-caption'>" + number + element.elements.caption.content + "</h5>";
+            }
+
+            html += "</div>";
         }
 
         self.renderedDocument.bodyElements.push({id: element.id, content: html});

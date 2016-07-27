@@ -4,6 +4,7 @@ app.service('dnpMDService', function($rootScope) {
     this.documentOutline = {};
 
     this.listings = [];
+    this.images = [];
     this.labels = {};
 
     var fs = require("fs");
@@ -52,12 +53,15 @@ app.service('dnpMDService', function($rootScope) {
     };
 
     // Maybe move to a dedicated file?
+    // Move to dnpMDTreeListener as part of the main language processing (listings, images, labels).
     this.processListingsAndImages = function () {
         this.listings = [];
+        this.images = [];
         this.labels.listings = {};
         this.labels.images = {};
 
         var listingCount = 0;
+        var imageCount = 0;
 
         var self = this;
         this.documentOutline.bodyElements.forEach(function (element) {
@@ -84,6 +88,16 @@ app.service('dnpMDService', function($rootScope) {
                 }
 
                 self.listings.push(element);
+
+            } else if (element.type == "image") {
+                imageCount++;
+
+                if (element.elements.label != undefined) {
+                    self.labels.images[element.elements.label.content]
+                        = {id: element.id, number: imageCount, label: element.elements.label.content};
+                }
+
+                self.images.push(element);
             }
         });
     };

@@ -35,7 +35,7 @@ listing
     ;
 
 image
-    : caption (label)? (imagePath)?
+    : caption (newline label)? (newline imagePath)?
     ;
 
 listingPath
