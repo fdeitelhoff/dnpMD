@@ -8,7 +8,6 @@ app.service('dnpMDService', function($rootScope) {
     this.labels = {};
 
     var fs = require("fs");
-    //ar LineByLineReader = require("line-by-line");
 
     var antlr4 = require('antlr4/index');
     var dnpMDLexer = require('./app/model/dnpMD/dnpMDLexer.js');

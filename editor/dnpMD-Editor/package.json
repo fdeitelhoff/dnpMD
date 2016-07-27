@@ -10,14 +10,13 @@
     "url": "https://github.com/fdeitelhoff/dnpMD"
   },
   "dependencies": {
-    "angular": "^1.5.7",
+    "angular": "^1.5.8",
     "angular-sanitize": "^1.5.8",
-    "line-by-line": "^0.1.5",
     "node-uuid": "^1.4.7"
   },
   "devDependencies": {
     "del": "^2.2.1",
-    "electron-prebuilt": "^1.2.8",
+    "electron-prebuilt": "^1.3.1",
     "gulp": "^3.9.1",
     "gulp-atom-electron": "^1.7.1",
     "gulp-inject": "^4.1.0",
