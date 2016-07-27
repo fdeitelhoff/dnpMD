@@ -64,8 +64,10 @@ app.service('dnpMDService', function($rootScope) {
             if (element.type == "listing") {
                 listingCount++;
 
-                self.labels.listings[element.elements.label.content]
-                    = {id: element.id, number: listingCount, label: element.elements.label.content};
+                if (element.elements.label != undefined) {
+                    self.labels.listings[element.elements.label.content]
+                        = {id: element.id, number: listingCount, label: element.elements.label.content};
+                }
 
                 if (element.external) {
                     var data = fs.readFileSync(element.elements.path.content);

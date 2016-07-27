@@ -82,7 +82,9 @@ dnpMDToHTML.prototype.transform = function(documentOutline, labels) {
 
             html += "</pre>";
 
-            html += "<h5 class='listing-caption'>" + number + element.elements.caption.content + "</h5>";
+            if (element.elements.caption != undefined) {
+                html += "<h5 class='listing-caption'>" + number + element.elements.caption.content + "</h5>";
+            }
 
             html += "</div>";
         }
