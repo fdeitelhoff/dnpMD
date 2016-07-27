@@ -19,11 +19,11 @@ dnpMDToHTML.prototype.transform = function(documentOutline) {
         var html = "";
 
         if (element.type == "subheadline") {
-            html = "<h3 class=\"subheadline\">" + element.content + "</h3>";
+            html = "<h3 class='subheadline'>" + element.content + "</h3>";
         } else if (element.type == "headline") {
-            html = "<h1 class=\"headline\">" + element.content + "</h1>";
+            html = "<h1 class='headline'>" + element.content + "</h1>";
         } else if (element.type == "lead") {
-            html = "<h3 class=\"lead\">" + element.content + "</h3>";
+            html = "<h3 class='lead'>" + element.content + "</h3>";
         }
 
         self.renderedDocument.headElements.push(html);
@@ -33,9 +33,9 @@ dnpMDToHTML.prototype.transform = function(documentOutline) {
         var html = "";
 
         if (element.type == "subheading") {
-            html = "<h4 class=\"subheading\">" + element.content + "</h4>";
+            html = "<h4 class='subheading'>" + element.content + "</h4>";
         } else if (element.type == "paragraph") {
-            var html = "<p>";
+            var html = "<p class='paragraph'>";
 
             element.children.forEach(function (child) {
                 if (child.type == "text") {

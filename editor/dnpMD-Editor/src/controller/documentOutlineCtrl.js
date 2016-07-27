@@ -26,8 +26,4 @@ app.controller('DocumentOutlineCtrl', function($scope, dnpMDService) {
 
         $scope.documentOutline = $outline;
     });
-
-    $scope.searchOutline = function(element) {
-        return element.content.indexOf($scope.search) != -1 || element.type.indexOf($scope.search) != -1;
-    };
 });

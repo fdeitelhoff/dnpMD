@@ -11,15 +11,15 @@ head
     ;
 
 subheadline
-    : SUBHEADLINE NL+
+    : SUBHEADLINE newlines
     ;
 
 headline
-    : HEADLINE NL+
+    : HEADLINE newlines
     ;
 
 lead
-    : LEAD newlines+
+    : LEAD newlines
     ;
 
 subheading
@@ -31,11 +31,11 @@ caption
     ;
 
 listing
-    : LISTING (newlines listingPath)? (newlines label)? newlines caption
+    : LISTING (newline listingPath)? (newline label)? newline caption
     ;
 
 image
-    : caption (NL label)? (NL imagePath)?
+    : caption (label)? (imagePath)?
     ;
 
 listingPath
@@ -59,13 +59,18 @@ italic
     ;
 
 paragraph
-    : TEXT? italic TEXT?
+    : (TEXT? italic TEXT?
     | TEXT? STAR TEXT?
     | TEXT? labelRef TEXT?
     | TEXT? BRACE_OPEN TEXT?
     | TEXT? LABEL TEXT?
     | ELEMENTPATH
     | TEXT
+    )+
+    ;
+
+newline
+    : NL
     ;
 
 newlines
@@ -74,7 +79,6 @@ newlines
 
 body
     : bodyElements+
-    // | EOF evtl. später aktivieren, um direkte Fehlermeldungen/Warnungen zu liefern?
     ;
 
 bodyElements
@@ -90,7 +94,7 @@ tail
     ;
 
 literatureEntries
-    : literatureEntry (NL+ | EOF)
+    : literatureEntry (newlines | EOF)
     ;
 
 authorBio

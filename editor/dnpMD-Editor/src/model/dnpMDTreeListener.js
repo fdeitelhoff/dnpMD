@@ -3,8 +3,6 @@ var dnpMDParserListener = require('./dnpMD/dnpMDParserListener.js').dnpMDParserL
 var dnpMDTreeListener = function() {
     dnpMDParserListener.call(this);
 
-    this.lastParagraph = {content: "", children: 0, type: "paragraph"};
-
     this.processCompleted = function() {};
 
     this.getText = function(ctx) {
@@ -25,7 +23,6 @@ dnpMDTreeListener.prototype.constructor = dnpMDTreeListener;
 
 dnpMDTreeListener.prototype.enterDnpMD = function() {
     this.documentElements = {};
-    this.lastParagraph = {children: 0, type: "paragraph"};
 };
 
 dnpMDTreeListener.prototype.exitDnpMD = function() {
@@ -100,18 +97,7 @@ dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
         }
     });
 
-    if (children.length > 0) {
-        if (this.lastParagraph.children.length > 0) {
-            this.lastParagraph.children = this.lastParagraph.children.concat(children);
-        } else {
-            this.lastParagraph = {children: children, type: "paragraph"};
-            this.documentElements.bodyElements.push(this.lastParagraph);
-        }
-    }
-};
-
-dnpMDTreeListener.prototype.exitNewlines = function() {
-    this.lastParagraph = {children: 0, type: "paragraph"};
+    this.documentElements.bodyElements.push({children: children, type: "paragraph"});
 };
 
 dnpMDTreeListener.prototype.exitSubheading = function(ctx) {
