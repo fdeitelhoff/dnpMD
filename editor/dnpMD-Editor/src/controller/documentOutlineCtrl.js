@@ -7,7 +7,7 @@ app.controller('DocumentOutlineCtrl', function($scope, dnpMDService) {
         // Maybe into another js file?
         // Maybe those arrays are mergable?
         dnpMDService.documentOutline.headElements.forEach(function(element) {
-            $outline.push({content: element.content, type: element.type});
+            $outline.push({id: element.id, content: element.content, type: element.type});
         });
 
         dnpMDService.documentOutline.bodyElements.forEach(function(element) {
@@ -18,9 +18,11 @@ app.controller('DocumentOutlineCtrl', function($scope, dnpMDService) {
                     content += child.content;
                 });
 
-                $outline.push({content: (content.length > 20) ? content.substr(0,20-1)+'&hellip;' : content, type: element.type});
+                $outline.push({id: element.id, content: (content.length > 20) ? content.substr(0,20-1)+'&hellip;' : content, type: element.type});
+            } else if (element.type == "listing") {
+                $outline.push({id: element.id, content: element.elements.caption.content, type: element.type});
             } else {
-                $outline.push({content: element.content, type: element.type});
+                $outline.push({id: element.id, content: element.content, type: element.type});
             }
         });
 
