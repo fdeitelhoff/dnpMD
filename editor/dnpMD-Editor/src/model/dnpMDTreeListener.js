@@ -1,9 +1,8 @@
 var dnpMDParserListener = require('./dnpMD/dnpMDParserListener.js').dnpMDParserListener;
+var uuid = require('node-uuid');
 
 var dnpMDTreeListener = function() {
     dnpMDParserListener.call(this);
-
-    this.lastParagraph = {content: "", children: 0, type: "paragraph"};
 
     this.processCompleted = function() {};
 
@@ -25,7 +24,6 @@ dnpMDTreeListener.prototype.constructor = dnpMDTreeListener;
 
 dnpMDTreeListener.prototype.enterDnpMD = function() {
     this.documentElements = {};
-    this.lastParagraph = {children: 0, type: "paragraph"};
 };
 
 dnpMDTreeListener.prototype.exitDnpMD = function() {
@@ -40,7 +38,7 @@ dnpMDTreeListener.prototype.exitSubheadline = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.headElements.push({content: content, children: 0, type: "subheadline"});
+        this.documentElements.headElements.push({id: uuid.v4(), content: content, children: 0, type: "subheadline"});
     }
 }
 
@@ -48,7 +46,7 @@ dnpMDTreeListener.prototype.exitHeadline = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.headElements.push({content: content, children: 0, type: "headline"});
+        this.documentElements.headElements.push({id: uuid.v4(), content: content, children: 0, type: "headline"});
     }
 }
 
@@ -56,7 +54,7 @@ dnpMDTreeListener.prototype.exitLead = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.headElements.push({content: content, children: 0, type: "lead"});
+        this.documentElements.headElements.push({id: uuid.v4(), content: content, children: 0, type: "lead"});
     }
 }
 
@@ -87,7 +85,7 @@ dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
                 content = text;
             }
 
-            children.push({content: content, type: "labelRef"});
+            children.push({content: content.replace(/{##/g,'').replace(/##}/g,''), type: "labelRef"});
         } else {
             var text = child.getText();
             var content = "";
@@ -100,34 +98,63 @@ dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
         }
     });
 
-    if (children.length > 0) {
-        if (this.lastParagraph.children.length > 0) {
-            this.lastParagraph.children = this.lastParagraph.children.concat(children);
-        } else {
-            this.lastParagraph = {children: children, type: "paragraph"};
-            this.documentElements.bodyElements.push(this.lastParagraph);
-        }
-    }
-};
-
-dnpMDTreeListener.prototype.exitNewlines = function() {
-    this.lastParagraph = {children: 0, type: "paragraph"};
+    this.documentElements.bodyElements.push({id: uuid.v4(), children: children, type: "paragraph"});
 };
 
 dnpMDTreeListener.prototype.exitSubheading = function(ctx) {
     var content = this.getText(ctx);
 
     if (content != "") {
-        this.documentElements.bodyElements.push({content: content, children: 0, type: "subheading"})
+        this.documentElements.bodyElements.push({id: uuid.v4(), content: content, children: 0, type: "subheading"})
     }
 };
 
 dnpMDTreeListener.prototype.exitListing = function(ctx) {
-    var content = this.getText(ctx);
+    var elements = {};
+    var externalListing = false;
 
-    if (content != "") {
-        this.documentElements.bodyElements.push({content: content, children: 0, type: "listing"})
-    }
+    ctx.children.forEach(function(child) {
+        if (child.LABEL != undefined) {
+            elements.label = {id: uuid.v4(), content: child.getText().replace(/{#/g,'').replace(/#}/g,''), type: "label"};
+
+        } else if (child.CAPTION != undefined) {
+            elements.caption = {id: uuid.v4(), content: child.getText().replace(/#####/g,''), type: "caption"};
+
+        } else if (child.ELEMENTPATH != undefined) {
+            externalListing = true;
+
+            elements.path = {id: uuid.v4(),
+                content: child.getText().replace(/\[\[\[\[\[/g,'').replace(/]]]]]/g,''), type: "path"};
+
+        } else if (child.LABEL == undefined && child.CAPTION == undefined && child.ELEMENTPATH == undefined
+            && child.NL == undefined) {
+            var text = child.getText().replace(/~~~~~/g,'').trim();
+
+            elements.source = {id: uuid.v4(), content: text, type: "source"};
+        }
+    });
+
+    this.documentElements.bodyElements.push({id: uuid.v4(), elements: elements, external: externalListing, type: "listing"});
+};
+
+dnpMDTreeListener.prototype.exitImage = function(ctx) {
+    var elements = {};
+
+    ctx.children.forEach(function(child) {
+        if (child.LABEL != undefined) {
+            elements.label = {id: uuid.v4(), content: child.getText().replace(/{#/g,'').replace(/#}/g,''), type: "label"};
+
+        } else if (child.ELEMENTPATH != undefined) {
+            elements.path = {id: uuid.v4(),
+                content: child.getText().replace(/\[\[\[\[\[/g,'').replace(/]]]]]/g,''), type: "path"};
+
+        } else if (child.CAPTION != undefined) {
+            elements.caption = {id: uuid.v4(), content: child.getText().replace(/#####/g,''), type: "caption"};
+
+        }
+    });
+
+    this.documentElements.bodyElements.push({id: uuid.v4(), elements: elements, type: "image"});
 };
 
 module.exports.dnpMDTreeListener = dnpMDTreeListener;

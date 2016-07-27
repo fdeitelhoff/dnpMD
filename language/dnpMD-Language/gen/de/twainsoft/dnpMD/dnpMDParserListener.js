@@ -146,6 +146,15 @@ dnpMDParserListener.prototype.exitParagraph = function(ctx) {
 };
 
 
+// Enter a parse tree produced by dnpMDParser#newline.
+dnpMDParserListener.prototype.enterNewline = function(ctx) {
+};
+
+// Exit a parse tree produced by dnpMDParser#newline.
+dnpMDParserListener.prototype.exitNewline = function(ctx) {
+};
+
+
 // Enter a parse tree produced by dnpMDParser#newlines.
 dnpMDParserListener.prototype.enterNewlines = function(ctx) {
 };
