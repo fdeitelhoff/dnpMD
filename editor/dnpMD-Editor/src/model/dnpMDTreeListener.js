@@ -137,4 +137,24 @@ dnpMDTreeListener.prototype.exitListing = function(ctx) {
     this.documentElements.bodyElements.push({id: uuid.v4(), elements: elements, external: externalListing, type: "listing"});
 };
 
+dnpMDTreeListener.prototype.exitImage = function(ctx) {
+    var elements = {};
+
+    ctx.children.forEach(function(child) {
+        if (child.LABEL != undefined) {
+            elements.label = {id: uuid.v4(), content: child.getText().replace(/{#/g,'').replace(/#}/g,''), type: "label"};
+
+        } else if (child.ELEMENTPATH != undefined) {
+            elements.path = {id: uuid.v4(),
+                content: child.getText().replace(/\[\[\[\[\[/g,'').replace(/]]]]]/g,''), type: "path"};
+
+        } else if (child.CAPTION != undefined) {
+            elements.caption = {id: uuid.v4(), content: child.getText().replace(/#####/g,''), type: "caption"};
+
+        }
+    });
+
+    this.documentElements.bodyElements.push({id: uuid.v4(), elements: elements, type: "image"});
+};
+
 module.exports.dnpMDTreeListener = dnpMDTreeListener;
