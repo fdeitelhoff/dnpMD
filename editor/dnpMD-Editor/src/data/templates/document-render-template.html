@@ -14,4 +14,11 @@
             <ng-bind-html ng-bind-html="bodyElement.content"></ng-bind-html>
         </ng-repeat>
     </div>
+
+    <!-- Tail section -->
+    <div class="tail" ng-if="documentRendered.tailElements.length > 0">
+        <ng-repeat ng-repeat="tailElement in documentRendered.tailElements">
+            <ng-bind-html ng-bind-html="tailElement.content"></ng-bind-html>
+        </ng-repeat>
+    </div>
 </div>

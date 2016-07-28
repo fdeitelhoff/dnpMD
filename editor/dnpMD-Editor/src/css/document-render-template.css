@@ -10,6 +10,11 @@
 
 }
 
+.tail {
+    border-top: 2px solid black;
+    margin-top: 50px;
+}
+
 .subheadline {
     font-size: 14px;
     margin: 0 0 -10px;
@@ -22,7 +27,7 @@
 
 .lead {
     font-size: 18px;
-    margin: -15px 0 20px;
+    margin: -10px 0 20px;
 }
 
 .paragraph {
@@ -70,6 +75,18 @@
     color: darkred;
 }
 
+.literature-ref {
+    color: darkblue;
+}
+
 .missing-ref {
     color: red;
+}
+
+.authorBio {
+    padding: 15px;
+}
+
+.literatureEntry {
+    margin: 5px;
 }

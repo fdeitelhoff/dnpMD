@@ -1,0 +1,11 @@
+<ul class="list-group">
+    <li class="list-group-header">
+        <input class="form-control" type="text" placeholder="Search..." ng-model="searchLiterature">
+    </li>
+    <li class="list-group-item" ng-repeat="literature in literatureOutline | filter:searchLiterature">
+        <div class="media-body">
+            <strong>{{literature.elements.content.description}}</strong>
+            <p>{{literature.elements.content.source}}</p>
+        </div>
+    </li>
+</ul>

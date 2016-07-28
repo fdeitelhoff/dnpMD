@@ -90,11 +90,11 @@ bodyElements
     ;
 
 tail
-    : TAIL newlines (authorBio)? (newlines literatureEntries*)?
+    : TAIL (newlines literatureEntries*)? (newlines authorBio)?
     ;
 
 literatureEntries
-    : literatureEntry (newlines | EOF)
+    : literatureEntry newlines
     ;
 
 authorBio

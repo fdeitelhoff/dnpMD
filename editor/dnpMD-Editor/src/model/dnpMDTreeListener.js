@@ -25,24 +25,26 @@ dnpMDTreeListener.prototype.constructor = dnpMDTreeListener;
 
 dnpMDTreeListener.prototype.enterDnpMD = function() {
     this.documentElements = {};
+    this.documentElements.headElements = [];
+    this.documentElements.bodyElements = [];
+    this.documentElements.tailElements = [];
 
     this.listings = [];
     this.images = [];
+    this.literature = [];
 
     this.listingCount = 0;
     this.imageCount = 0;
+    this.literatureCount = 0;
 
     this.labels = {};
     this.labels.listings = {};
     this.labels.images = {};
+    this.labels.literature = {};
 };
 
 dnpMDTreeListener.prototype.exitDnpMD = function() {
     this.processCompleted(this.documentElements);
-};
-
-dnpMDTreeListener.prototype.enterHead = function() {
-    this.documentElements.headElements = [];
 };
 
 dnpMDTreeListener.prototype.exitSubheadline = function(ctx) {
@@ -50,7 +52,7 @@ dnpMDTreeListener.prototype.exitSubheadline = function(ctx) {
 
     if (content != "") {
         this.documentElements.headElements.push({id: uuid.v4(), content: content.replace(/##/g,''),
-            children: [], type: "subheadline"});
+            children: {}, type: "subheadline"});
     }
 };
 
@@ -60,7 +62,7 @@ dnpMDTreeListener.prototype.exitHeadline = function(ctx) {
     if (content != "") {
         this.documentElements.headElements.push({id: uuid.v4(),
             content: content.replace(/\\#/g,'~~~~~').replace(/#/g,'').replace(/~~~~~/g,'#'),
-            children: [], type: "headline"});
+            children: {}, type: "headline"});
     }
 };
 
@@ -69,12 +71,8 @@ dnpMDTreeListener.prototype.exitLead = function(ctx) {
 
     if (content != "") {
         this.documentElements.headElements.push({id: uuid.v4(), content: content.replace(/###/g,''),
-            children: [], type: "lead"});
+            children: {}, type: "lead"});
     }
-};
-
-dnpMDTreeListener.prototype.enterBody = function() {
-    this.documentElements.bodyElements = [];
 };
 
 dnpMDTreeListener.prototype.exitParagraph = function(ctx) {
@@ -124,7 +122,7 @@ dnpMDTreeListener.prototype.exitSubheading = function(ctx) {
 
     if (content != "") {
         this.documentElements.bodyElements.push({id: uuid.v4(), content: content.replace(/####/g,''),
-            children: [], type: "subheading"})
+            children: {}, type: "subheading"})
     }
 };
 
@@ -211,6 +209,40 @@ dnpMDTreeListener.prototype.exitImage = function(ctx) {
     this.images.push(image);
 
     this.documentElements.bodyElements.push(image);
+};
+
+dnpMDTreeListener.prototype.exitAuthorBio = function(ctx) {
+    var content = this.getText(ctx);
+
+    if (content != "") {
+        this.documentElements.tailElements.push({id: uuid.v4(), content: content.replace(/# Kurzbio #/g,'').trim(),
+            children: {}, type: "authorBio"})
+    }
+};
+
+dnpMDTreeListener.prototype.exitLiteratureEntry = function(ctx) {
+    var labelContent = ctx.children[0].getText();
+    var literatureContent = ctx.children[1].getText();
+
+    labelContent = labelContent.replace(/{#/g,'').replace(/#}/g,'');
+    literatureContent = literatureContent.replace(/\[/g,'').replace(/]/g,'')
+
+    var literatureContents = literatureContent.split("|");
+
+    this.literatureCount++;
+
+    var elements = {};
+    elements.label = {id: uuid.v4(), number: this.literatureCount, label: labelContent};
+
+    this.labels.literature[labelContent] = elements.label;
+
+    elements.content = {id: uuid.v4(), description: literatureContents[0], source: literatureContents[1]};
+
+    var literature = {id: uuid.v4(), number: this.literatureCount, elements: elements, type: "literature"};
+
+    this.literature.push(literature);
+
+    this.documentElements.tailElements.push(literature);
 };
 
 module.exports.dnpMDTreeListener = dnpMDTreeListener;
