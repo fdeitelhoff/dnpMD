@@ -51,12 +51,16 @@ dnpMDToHTML.prototype.transform = function(documentOutline, labels) {
                 } else if (child.type == "labelRef") {
                     var listingRef = self.labels.listings[child.content];
                     var imageRef = self.labels.images[child.content];
+                    var literatureRef = self.labels.literature[child.content];
 
                     if (listingRef != undefined) {
                         html += "<span class='listing-ref'>" + listingRef.number + "</span>";
 
                     } else if (imageRef != undefined) {
                         html += "<span class='image-ref'>" + imageRef.number + "</span>";
+
+                    } else if (literatureRef != undefined) {
+                        html += "<span class='literature-ref'>" + literatureRef.number + "</span>";
 
                     } else {
                         html += "<span class='missing-ref'>[? " + child.content + " ?]</span>";
@@ -96,6 +100,32 @@ dnpMDToHTML.prototype.transform = function(documentOutline, labels) {
         }
 
         self.renderedDocument.bodyElements.push({id: element.id, content: html});
+    });
+
+    documentOutline.tailElements.forEach(function(element) {
+        var html = "";
+
+        if (element.type == "authorBio") {
+            html += "<div class='authorBio'>";
+
+            html += "<p>Kurzbiografie:</p>";
+
+            html += "<p>" + element.content + "</p>";
+
+            html += "</div>";
+
+        } else if (element.type == "literature") {
+            html += "<div class='literatureEntry'>";
+
+            html += "[" + element.number + "]: " + element.elements.content.description + "</br>";
+
+            html += element.elements.content.source;
+
+            html += "</div>";
+
+        }
+
+        self.renderedDocument.tailElements.push({id: element.id, content: html});
     });
 };
 

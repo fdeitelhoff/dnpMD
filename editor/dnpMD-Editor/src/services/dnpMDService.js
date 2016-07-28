@@ -5,6 +5,7 @@ app.service('dnpMDService', function($rootScope) {
 
     this.listings = [];
     this.images = [];
+    this.literature = [];
     this.labels = {};
 
     var fs = require("fs");
@@ -26,6 +27,7 @@ app.service('dnpMDService', function($rootScope) {
 
         self.listings = treeListener.listings;
         self.images = treeListener.images;
+        self.literature = treeListener.literature;
         self.labels = treeListener.labels;
 
         $rootScope.$broadcast('outlineCompleted');

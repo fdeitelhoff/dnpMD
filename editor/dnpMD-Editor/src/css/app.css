@@ -27,20 +27,29 @@
 }
 
 .pane-outline {
-    max-height: 40%;
-    min-height: 40%;
+    max-height: 31%;
+    min-height: 31%;
     background-color: lightcoral;
     overflow-y: auto;
 }
 
 .pane-listings {
-    max-height: 30%;
-    min-height: 30%;
+    max-height: 23%;
+    min-height: 23%;
     background-color: lightgreen;
+    overflow-y: auto;
 }
 
 .pane-images {
-    max-height: 30%;
-    min-height: 30%;
+    max-height: 23%;
+    min-height: 23%;
     background-color: lightskyblue;
+    overflow-y: auto;
+}
+
+.pane-literature {
+    max-height: 23%;
+    min-height: 23%;
+    background-color: darkorange;
+    overflow-y: auto;
 }

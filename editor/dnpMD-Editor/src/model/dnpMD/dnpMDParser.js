@@ -2,12 +2,10 @@
 // jshint ignore: start
 var antlr4 = require('antlr4/index');
 var dnpMDParserListener = require('./dnpMDParserListener').dnpMDParserListener;
-var dnpMDParserVisitor = require('./dnpMDParserVisitor').dnpMDParserVisitor;
-
 var grammarFileName = "dnpMDParser.g4";
 
 var serializedATN = ["\u0003\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd",
-    "\u0003\u0015\u00be\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
+    "\u0003\u0015\u00bd\u0004\u0002\t\u0002\u0004\u0003\t\u0003\u0004\u0004",
     "\t\u0004\u0004\u0005\t\u0005\u0004\u0006\t\u0006\u0004\u0007\t\u0007",
     "\u0004\b\t\b\u0004\t\t\t\u0004\n\t\n\u0004\u000b\t\u000b\u0004\f\t\f",
     "\u0004\r\t\r\u0004\u000e\t\u000e\u0004\u000f\t\u000f\u0004\u0010\t\u0010",
@@ -32,98 +30,97 @@ var serializedATN = ["\u0003\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd",
     "\r\u0012\u000e\u0012\u0097\u0003\u0013\u0006\u0013\u009b\n\u0013\r\u0013",
     "\u000e\u0013\u009c\u0003\u0014\u0003\u0014\u0003\u0014\u0003\u0014\u0003",
     "\u0014\u0005\u0014\u00a4\n\u0014\u0003\u0015\u0003\u0015\u0003\u0015",
-    "\u0005\u0015\u00a9\n\u0015\u0003\u0015\u0003\u0015\u0007\u0015\u00ad",
-    "\n\u0015\f\u0015\u000e\u0015\u00b0\u000b\u0015\u0005\u0015\u00b2\n\u0015",
-    "\u0003\u0016\u0003\u0016\u0003\u0016\u0005\u0016\u00b7\n\u0016\u0003",
-    "\u0017\u0003\u0017\u0003\u0018\u0003\u0018\u0003\u0018\u0003\u0018\u0002",
-    "\u0002\u0019\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018",
-    "\u001a\u001c\u001e \"$&(*,.\u0002\u0002\u00c6\u00020\u0003\u0002\u0002",
-    "\u0002\u00045\u0003\u0002\u0002\u0002\u00069\u0003\u0002\u0002\u0002",
-    "\b<\u0003\u0002\u0002\u0002\n?\u0003\u0002\u0002\u0002\fB\u0003\u0002",
-    "\u0002\u0002\u000eD\u0003\u0002\u0002\u0002\u0010F\u0003\u0002\u0002",
-    "\u0002\u0012T\u0003\u0002\u0002\u0002\u0014_\u0003\u0002\u0002\u0002",
-    "\u0016a\u0003\u0002\u0002\u0002\u0018c\u0003\u0002\u0002\u0002\u001a",
-    "e\u0003\u0002\u0002\u0002\u001cg\u0003\u0002\u0002\u0002\u001e\u008e",
-    "\u0003\u0002\u0002\u0002 \u0092\u0003\u0002\u0002\u0002\"\u0095\u0003",
-    "\u0002\u0002\u0002$\u009a\u0003\u0002\u0002\u0002&\u00a3\u0003\u0002",
-    "\u0002\u0002(\u00a5\u0003\u0002\u0002\u0002*\u00b3\u0003\u0002\u0002",
-    "\u0002,\u00b8\u0003\u0002\u0002\u0002.\u00ba\u0003\u0002\u0002\u0002",
-    "01\u0005\u0004\u0003\u000213\u0005$\u0013\u000224\u0005(\u0015\u0002",
-    "32\u0003\u0002\u0002\u000234\u0003\u0002\u0002\u00024\u0003\u0003\u0002",
-    "\u0002\u000256\u0005\u0006\u0004\u000267\u0005\b\u0005\u000278\u0005",
-    "\n\u0006\u00028\u0005\u0003\u0002\u0002\u00029:\u0007\u0004\u0002\u0002",
-    ":;\u0005\"\u0012\u0002;\u0007\u0003\u0002\u0002\u0002<=\u0007\u0005",
-    "\u0002\u0002=>\u0005\"\u0012\u0002>\t\u0003\u0002\u0002\u0002?@\u0007",
-    "\u0006\u0002\u0002@A\u0005\"\u0012\u0002A\u000b\u0003\u0002\u0002\u0002",
-    "BC\u0007\u0007\u0002\u0002C\r\u0003\u0002\u0002\u0002DE\u0007\b\u0002",
-    "\u0002E\u000f\u0003\u0002\u0002\u0002FJ\u0007\n\u0002\u0002GH\u0005",
-    " \u0011\u0002HI\u0005\u0014\u000b\u0002IK\u0003\u0002\u0002\u0002JG",
-    "\u0003\u0002\u0002\u0002JK\u0003\u0002\u0002\u0002KO\u0003\u0002\u0002",
-    "\u0002LM\u0005 \u0011\u0002MN\u0005\u001a\u000e\u0002NP\u0003\u0002",
-    "\u0002\u0002OL\u0003\u0002\u0002\u0002OP\u0003\u0002\u0002\u0002PQ\u0003",
-    "\u0002\u0002\u0002QR\u0005 \u0011\u0002RS\u0005\u000e\b\u0002S\u0011",
-    "\u0003\u0002\u0002\u0002TX\u0005\u000e\b\u0002UV\u0005 \u0011\u0002",
-    "VW\u0005\u001a\u000e\u0002WY\u0003\u0002\u0002\u0002XU\u0003\u0002\u0002",
-    "\u0002XY\u0003\u0002\u0002\u0002Y]\u0003\u0002\u0002\u0002Z[\u0005 ",
-    "\u0011\u0002[\\\u0005\u0016\f\u0002\\^\u0003\u0002\u0002\u0002]Z\u0003",
-    "\u0002\u0002\u0002]^\u0003\u0002\u0002\u0002^\u0013\u0003\u0002\u0002",
-    "\u0002_`\u0007\u000b\u0002\u0002`\u0015\u0003\u0002\u0002\u0002ab\u0007",
-    "\u000b\u0002\u0002b\u0017\u0003\u0002\u0002\u0002cd\u0007\f\u0002\u0002",
-    "d\u0019\u0003\u0002\u0002\u0002ef\u0007\r\u0002\u0002f\u001b\u0003\u0002",
-    "\u0002\u0002gh\u0007\u0010\u0002\u0002h\u001d\u0003\u0002\u0002\u0002",
-    "ik\u0007\u0015\u0002\u0002ji\u0003\u0002\u0002\u0002jk\u0003\u0002\u0002",
-    "\u0002kl\u0003\u0002\u0002\u0002ln\u0005\u001c\u000f\u0002mo\u0007\u0015",
-    "\u0002\u0002nm\u0003\u0002\u0002\u0002no\u0003\u0002\u0002\u0002o\u008f",
-    "\u0003\u0002\u0002\u0002pr\u0007\u0015\u0002\u0002qp\u0003\u0002\u0002",
-    "\u0002qr\u0003\u0002\u0002\u0002rs\u0003\u0002\u0002\u0002su\u0007\u0013",
-    "\u0002\u0002tv\u0007\u0015\u0002\u0002ut\u0003\u0002\u0002\u0002uv\u0003",
-    "\u0002\u0002\u0002v\u008f\u0003\u0002\u0002\u0002wy\u0007\u0015\u0002",
-    "\u0002xw\u0003\u0002\u0002\u0002xy\u0003\u0002\u0002\u0002yz\u0003\u0002",
-    "\u0002\u0002z|\u0005\u0018\r\u0002{}\u0007\u0015\u0002\u0002|{\u0003",
-    "\u0002\u0002\u0002|}\u0003\u0002\u0002\u0002}\u008f\u0003\u0002\u0002",
-    "\u0002~\u0080\u0007\u0015\u0002\u0002\u007f~\u0003\u0002\u0002\u0002",
-    "\u007f\u0080\u0003\u0002\u0002\u0002\u0080\u0081\u0003\u0002\u0002\u0002",
-    "\u0081\u0083\u0007\u0014\u0002\u0002\u0082\u0084\u0007\u0015\u0002\u0002",
-    "\u0083\u0082\u0003\u0002\u0002\u0002\u0083\u0084\u0003\u0002\u0002\u0002",
-    "\u0084\u008f\u0003\u0002\u0002\u0002\u0085\u0087\u0007\u0015\u0002\u0002",
-    "\u0086\u0085\u0003\u0002\u0002\u0002\u0086\u0087\u0003\u0002\u0002\u0002",
-    "\u0087\u0088\u0003\u0002\u0002\u0002\u0088\u008a\u0007\r\u0002\u0002",
-    "\u0089\u008b\u0007\u0015\u0002\u0002\u008a\u0089\u0003\u0002\u0002\u0002",
-    "\u008a\u008b\u0003\u0002\u0002\u0002\u008b\u008f\u0003\u0002\u0002\u0002",
-    "\u008c\u008f\u0007\u000b\u0002\u0002\u008d\u008f\u0007\u0015\u0002\u0002",
-    "\u008ej\u0003\u0002\u0002\u0002\u008eq\u0003\u0002\u0002\u0002\u008e",
-    "x\u0003\u0002\u0002\u0002\u008e\u007f\u0003\u0002\u0002\u0002\u008e",
-    "\u0086\u0003\u0002\u0002\u0002\u008e\u008c\u0003\u0002\u0002\u0002\u008e",
-    "\u008d\u0003\u0002\u0002\u0002\u008f\u0090\u0003\u0002\u0002\u0002\u0090",
-    "\u008e\u0003\u0002\u0002\u0002\u0090\u0091\u0003\u0002\u0002\u0002\u0091",
-    "\u001f\u0003\u0002\u0002\u0002\u0092\u0093\u0007\u0003\u0002\u0002\u0093",
-    "!\u0003\u0002\u0002\u0002\u0094\u0096\u0007\u0003\u0002\u0002\u0095",
-    "\u0094\u0003\u0002\u0002\u0002\u0096\u0097\u0003\u0002\u0002\u0002\u0097",
-    "\u0095\u0003\u0002\u0002\u0002\u0097\u0098\u0003\u0002\u0002\u0002\u0098",
-    "#\u0003\u0002\u0002\u0002\u0099\u009b\u0005&\u0014\u0002\u009a\u0099",
-    "\u0003\u0002\u0002\u0002\u009b\u009c\u0003\u0002\u0002\u0002\u009c\u009a",
-    "\u0003\u0002\u0002\u0002\u009c\u009d\u0003\u0002\u0002\u0002\u009d%",
-    "\u0003\u0002\u0002\u0002\u009e\u00a4\u0005\u001e\u0010\u0002\u009f\u00a4",
-    "\u0005\f\u0007\u0002\u00a0\u00a4\u0005\u0010\t\u0002\u00a1\u00a4\u0005",
-    "\u0012\n\u0002\u00a2\u00a4\u0005\"\u0012\u0002\u00a3\u009e\u0003\u0002",
-    "\u0002\u0002\u00a3\u009f\u0003\u0002\u0002\u0002\u00a3\u00a0\u0003\u0002",
-    "\u0002\u0002\u00a3\u00a1\u0003\u0002\u0002\u0002\u00a3\u00a2\u0003\u0002",
-    "\u0002\u0002\u00a4\'\u0003\u0002\u0002\u0002\u00a5\u00a6\u0007\t\u0002",
-    "\u0002\u00a6\u00a8\u0005\"\u0012\u0002\u00a7\u00a9\u0005,\u0017\u0002",
-    "\u00a8\u00a7\u0003\u0002\u0002\u0002\u00a8\u00a9\u0003\u0002\u0002\u0002",
-    "\u00a9\u00b1\u0003\u0002\u0002\u0002\u00aa\u00ae\u0005\"\u0012\u0002",
-    "\u00ab\u00ad\u0005*\u0016\u0002\u00ac\u00ab\u0003\u0002\u0002\u0002",
-    "\u00ad\u00b0\u0003\u0002\u0002\u0002\u00ae\u00ac\u0003\u0002\u0002\u0002",
-    "\u00ae\u00af\u0003\u0002\u0002\u0002\u00af\u00b2\u0003\u0002\u0002\u0002",
-    "\u00b0\u00ae\u0003\u0002\u0002\u0002\u00b1\u00aa\u0003\u0002\u0002\u0002",
-    "\u00b1\u00b2\u0003\u0002\u0002\u0002\u00b2)\u0003\u0002\u0002\u0002",
-    "\u00b3\u00b6\u0005.\u0018\u0002\u00b4\u00b7\u0005\"\u0012\u0002\u00b5",
-    "\u00b7\u0007\u0002\u0002\u0003\u00b6\u00b4\u0003\u0002\u0002\u0002\u00b6",
-    "\u00b5\u0003\u0002\u0002\u0002\u00b7+\u0003\u0002\u0002\u0002\u00b8",
-    "\u00b9\u0007\u000f\u0002\u0002\u00b9-\u0003\u0002\u0002\u0002\u00ba",
-    "\u00bb\u0007\r\u0002\u0002\u00bb\u00bc\u0007\u000e\u0002\u0002\u00bc",
-    "/\u0003\u0002\u0002\u0002\u001a3JOX]jnqux|\u007f\u0083\u0086\u008a\u008e",
-    "\u0090\u0097\u009c\u00a3\u00a8\u00ae\u00b1\u00b6"].join("");
+    "\u0007\u0015\u00a9\n\u0015\f\u0015\u000e\u0015\u00ac\u000b\u0015\u0005",
+    "\u0015\u00ae\n\u0015\u0003\u0015\u0003\u0015\u0003\u0015\u0005\u0015",
+    "\u00b3\n\u0015\u0003\u0016\u0003\u0016\u0003\u0016\u0003\u0017\u0003",
+    "\u0017\u0003\u0018\u0003\u0018\u0003\u0018\u0003\u0018\u0002\u0002\u0019",
+    "\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c",
+    "\u001e \"$&(*,.\u0002\u0002\u00c4\u00020\u0003\u0002\u0002\u0002\u0004",
+    "5\u0003\u0002\u0002\u0002\u00069\u0003\u0002\u0002\u0002\b<\u0003\u0002",
+    "\u0002\u0002\n?\u0003\u0002\u0002\u0002\fB\u0003\u0002\u0002\u0002\u000e",
+    "D\u0003\u0002\u0002\u0002\u0010F\u0003\u0002\u0002\u0002\u0012T\u0003",
+    "\u0002\u0002\u0002\u0014_\u0003\u0002\u0002\u0002\u0016a\u0003\u0002",
+    "\u0002\u0002\u0018c\u0003\u0002\u0002\u0002\u001ae\u0003\u0002\u0002",
+    "\u0002\u001cg\u0003\u0002\u0002\u0002\u001e\u008e\u0003\u0002\u0002",
+    "\u0002 \u0092\u0003\u0002\u0002\u0002\"\u0095\u0003\u0002\u0002\u0002",
+    "$\u009a\u0003\u0002\u0002\u0002&\u00a3\u0003\u0002\u0002\u0002(\u00a5",
+    "\u0003\u0002\u0002\u0002*\u00b4\u0003\u0002\u0002\u0002,\u00b7\u0003",
+    "\u0002\u0002\u0002.\u00b9\u0003\u0002\u0002\u000201\u0005\u0004\u0003",
+    "\u000213\u0005$\u0013\u000224\u0005(\u0015\u000232\u0003\u0002\u0002",
+    "\u000234\u0003\u0002\u0002\u00024\u0003\u0003\u0002\u0002\u000256\u0005",
+    "\u0006\u0004\u000267\u0005\b\u0005\u000278\u0005\n\u0006\u00028\u0005",
+    "\u0003\u0002\u0002\u00029:\u0007\u0004\u0002\u0002:;\u0005\"\u0012\u0002",
+    ";\u0007\u0003\u0002\u0002\u0002<=\u0007\u0005\u0002\u0002=>\u0005\"",
+    "\u0012\u0002>\t\u0003\u0002\u0002\u0002?@\u0007\u0006\u0002\u0002@A",
+    "\u0005\"\u0012\u0002A\u000b\u0003\u0002\u0002\u0002BC\u0007\u0007\u0002",
+    "\u0002C\r\u0003\u0002\u0002\u0002DE\u0007\b\u0002\u0002E\u000f\u0003",
+    "\u0002\u0002\u0002FJ\u0007\n\u0002\u0002GH\u0005 \u0011\u0002HI\u0005",
+    "\u0014\u000b\u0002IK\u0003\u0002\u0002\u0002JG\u0003\u0002\u0002\u0002",
+    "JK\u0003\u0002\u0002\u0002KO\u0003\u0002\u0002\u0002LM\u0005 \u0011",
+    "\u0002MN\u0005\u001a\u000e\u0002NP\u0003\u0002\u0002\u0002OL\u0003\u0002",
+    "\u0002\u0002OP\u0003\u0002\u0002\u0002PQ\u0003\u0002\u0002\u0002QR\u0005",
+    " \u0011\u0002RS\u0005\u000e\b\u0002S\u0011\u0003\u0002\u0002\u0002T",
+    "X\u0005\u000e\b\u0002UV\u0005 \u0011\u0002VW\u0005\u001a\u000e\u0002",
+    "WY\u0003\u0002\u0002\u0002XU\u0003\u0002\u0002\u0002XY\u0003\u0002\u0002",
+    "\u0002Y]\u0003\u0002\u0002\u0002Z[\u0005 \u0011\u0002[\\\u0005\u0016",
+    "\f\u0002\\^\u0003\u0002\u0002\u0002]Z\u0003\u0002\u0002\u0002]^\u0003",
+    "\u0002\u0002\u0002^\u0013\u0003\u0002\u0002\u0002_`\u0007\u000b\u0002",
+    "\u0002`\u0015\u0003\u0002\u0002\u0002ab\u0007\u000b\u0002\u0002b\u0017",
+    "\u0003\u0002\u0002\u0002cd\u0007\f\u0002\u0002d\u0019\u0003\u0002\u0002",
+    "\u0002ef\u0007\r\u0002\u0002f\u001b\u0003\u0002\u0002\u0002gh\u0007",
+    "\u0010\u0002\u0002h\u001d\u0003\u0002\u0002\u0002ik\u0007\u0015\u0002",
+    "\u0002ji\u0003\u0002\u0002\u0002jk\u0003\u0002\u0002\u0002kl\u0003\u0002",
+    "\u0002\u0002ln\u0005\u001c\u000f\u0002mo\u0007\u0015\u0002\u0002nm\u0003",
+    "\u0002\u0002\u0002no\u0003\u0002\u0002\u0002o\u008f\u0003\u0002\u0002",
+    "\u0002pr\u0007\u0015\u0002\u0002qp\u0003\u0002\u0002\u0002qr\u0003\u0002",
+    "\u0002\u0002rs\u0003\u0002\u0002\u0002su\u0007\u0013\u0002\u0002tv\u0007",
+    "\u0015\u0002\u0002ut\u0003\u0002\u0002\u0002uv\u0003\u0002\u0002\u0002",
+    "v\u008f\u0003\u0002\u0002\u0002wy\u0007\u0015\u0002\u0002xw\u0003\u0002",
+    "\u0002\u0002xy\u0003\u0002\u0002\u0002yz\u0003\u0002\u0002\u0002z|\u0005",
+    "\u0018\r\u0002{}\u0007\u0015\u0002\u0002|{\u0003\u0002\u0002\u0002|",
+    "}\u0003\u0002\u0002\u0002}\u008f\u0003\u0002\u0002\u0002~\u0080\u0007",
+    "\u0015\u0002\u0002\u007f~\u0003\u0002\u0002\u0002\u007f\u0080\u0003",
+    "\u0002\u0002\u0002\u0080\u0081\u0003\u0002\u0002\u0002\u0081\u0083\u0007",
+    "\u0014\u0002\u0002\u0082\u0084\u0007\u0015\u0002\u0002\u0083\u0082\u0003",
+    "\u0002\u0002\u0002\u0083\u0084\u0003\u0002\u0002\u0002\u0084\u008f\u0003",
+    "\u0002\u0002\u0002\u0085\u0087\u0007\u0015\u0002\u0002\u0086\u0085\u0003",
+    "\u0002\u0002\u0002\u0086\u0087\u0003\u0002\u0002\u0002\u0087\u0088\u0003",
+    "\u0002\u0002\u0002\u0088\u008a\u0007\r\u0002\u0002\u0089\u008b\u0007",
+    "\u0015\u0002\u0002\u008a\u0089\u0003\u0002\u0002\u0002\u008a\u008b\u0003",
+    "\u0002\u0002\u0002\u008b\u008f\u0003\u0002\u0002\u0002\u008c\u008f\u0007",
+    "\u000b\u0002\u0002\u008d\u008f\u0007\u0015\u0002\u0002\u008ej\u0003",
+    "\u0002\u0002\u0002\u008eq\u0003\u0002\u0002\u0002\u008ex\u0003\u0002",
+    "\u0002\u0002\u008e\u007f\u0003\u0002\u0002\u0002\u008e\u0086\u0003\u0002",
+    "\u0002\u0002\u008e\u008c\u0003\u0002\u0002\u0002\u008e\u008d\u0003\u0002",
+    "\u0002\u0002\u008f\u0090\u0003\u0002\u0002\u0002\u0090\u008e\u0003\u0002",
+    "\u0002\u0002\u0090\u0091\u0003\u0002\u0002\u0002\u0091\u001f\u0003\u0002",
+    "\u0002\u0002\u0092\u0093\u0007\u0003\u0002\u0002\u0093!\u0003\u0002",
+    "\u0002\u0002\u0094\u0096\u0007\u0003\u0002\u0002\u0095\u0094\u0003\u0002",
+    "\u0002\u0002\u0096\u0097\u0003\u0002\u0002\u0002\u0097\u0095\u0003\u0002",
+    "\u0002\u0002\u0097\u0098\u0003\u0002\u0002\u0002\u0098#\u0003\u0002",
+    "\u0002\u0002\u0099\u009b\u0005&\u0014\u0002\u009a\u0099\u0003\u0002",
+    "\u0002\u0002\u009b\u009c\u0003\u0002\u0002\u0002\u009c\u009a\u0003\u0002",
+    "\u0002\u0002\u009c\u009d\u0003\u0002\u0002\u0002\u009d%\u0003\u0002",
+    "\u0002\u0002\u009e\u00a4\u0005\u001e\u0010\u0002\u009f\u00a4\u0005\f",
+    "\u0007\u0002\u00a0\u00a4\u0005\u0010\t\u0002\u00a1\u00a4\u0005\u0012",
+    "\n\u0002\u00a2\u00a4\u0005\"\u0012\u0002\u00a3\u009e\u0003\u0002\u0002",
+    "\u0002\u00a3\u009f\u0003\u0002\u0002\u0002\u00a3\u00a0\u0003\u0002\u0002",
+    "\u0002\u00a3\u00a1\u0003\u0002\u0002\u0002\u00a3\u00a2\u0003\u0002\u0002",
+    "\u0002\u00a4\'\u0003\u0002\u0002\u0002\u00a5\u00ad\u0007\t\u0002\u0002",
+    "\u00a6\u00aa\u0005\"\u0012\u0002\u00a7\u00a9\u0005*\u0016\u0002\u00a8",
+    "\u00a7\u0003\u0002\u0002\u0002\u00a9\u00ac\u0003\u0002\u0002\u0002\u00aa",
+    "\u00a8\u0003\u0002\u0002\u0002\u00aa\u00ab\u0003\u0002\u0002\u0002\u00ab",
+    "\u00ae\u0003\u0002\u0002\u0002\u00ac\u00aa\u0003\u0002\u0002\u0002\u00ad",
+    "\u00a6\u0003\u0002\u0002\u0002\u00ad\u00ae\u0003\u0002\u0002\u0002\u00ae",
+    "\u00b2\u0003\u0002\u0002\u0002\u00af\u00b0\u0005\"\u0012\u0002\u00b0",
+    "\u00b1\u0005,\u0017\u0002\u00b1\u00b3\u0003\u0002\u0002\u0002\u00b2",
+    "\u00af\u0003\u0002\u0002\u0002\u00b2\u00b3\u0003\u0002\u0002\u0002\u00b3",
+    ")\u0003\u0002\u0002\u0002\u00b4\u00b5\u0005.\u0018\u0002\u00b5\u00b6",
+    "\u0005\"\u0012\u0002\u00b6+\u0003\u0002\u0002\u0002\u00b7\u00b8\u0007",
+    "\u000f\u0002\u0002\u00b8-\u0003\u0002\u0002\u0002\u00b9\u00ba\u0007",
+    "\r\u0002\u0002\u00ba\u00bb\u0007\u000e\u0002\u0002\u00bb/\u0003\u0002",
+    "\u0002\u0002\u00193JOX]jnqux|\u007f\u0083\u0086\u008a\u008e\u0090\u0097",
+    "\u009c\u00a3\u00aa\u00ad\u00b2"].join("");
 
 
 var atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -251,14 +248,6 @@ DnpMDContext.prototype.exitRule = function(listener) {
 	}
 };
 
-DnpMDContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitDnpMD(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -336,14 +325,6 @@ HeadContext.prototype.exitRule = function(listener) {
 	}
 };
 
-HeadContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitHead(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -411,14 +392,6 @@ SubheadlineContext.prototype.exitRule = function(listener) {
 	}
 };
 
-SubheadlineContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitSubheadline(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -482,14 +455,6 @@ HeadlineContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitHeadline(this);
 	}
-};
-
-HeadlineContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitHeadline(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -557,14 +522,6 @@ LeadContext.prototype.exitRule = function(listener) {
 	}
 };
 
-LeadContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitLead(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -626,14 +583,6 @@ SubheadingContext.prototype.exitRule = function(listener) {
 	}
 };
 
-SubheadingContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitSubheading(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -691,14 +640,6 @@ CaptionContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitCaption(this);
 	}
-};
-
-CaptionContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitCaption(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -781,14 +722,6 @@ ListingContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitListing(this);
 	}
-};
-
-ListingContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitListing(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -893,14 +826,6 @@ ImageContext.prototype.exitRule = function(listener) {
 	}
 };
 
-ImageContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitImage(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -980,14 +905,6 @@ ListingPathContext.prototype.exitRule = function(listener) {
 	}
 };
 
-ListingPathContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitListingPath(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1045,14 +962,6 @@ ImagePathContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitImagePath(this);
 	}
-};
-
-ImagePathContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitImagePath(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1114,14 +1023,6 @@ LabelRefContext.prototype.exitRule = function(listener) {
 	}
 };
 
-LabelRefContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitLabelRef(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1181,14 +1082,6 @@ LabelContext.prototype.exitRule = function(listener) {
 	}
 };
 
-LabelContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitLabel(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1246,14 +1139,6 @@ ItalicContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitItalic(this);
 	}
-};
-
-ItalicContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitItalic(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1391,14 +1276,6 @@ ParagraphContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitParagraph(this);
 	}
-};
-
-ParagraphContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitParagraph(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1588,14 +1465,6 @@ NewlineContext.prototype.exitRule = function(listener) {
 	}
 };
 
-NewlineContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitNewline(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1661,14 +1530,6 @@ NewlinesContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitNewlines(this);
 	}
-};
-
-NewlinesContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitNewlines(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1749,14 +1610,6 @@ BodyContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitBody(this);
 	}
-};
-
-BodyContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitBody(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1841,14 +1694,6 @@ BodyElementsContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitBodyElements(this);
 	}
-};
-
-BodyElementsContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitBodyElements(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -1969,14 +1814,6 @@ TailContext.prototype.exitRule = function(listener) {
 	}
 };
 
-TailContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitTail(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -1991,30 +1828,31 @@ dnpMDParser.prototype.tail = function() {
         this.enterOuterAlt(localctx, 1);
         this.state = 163;
         this.match(dnpMDParser.TAIL);
-        this.state = 164;
-        this.newlines();
-        this.state = 166;
-        _la = this._input.LA(1);
-        if(_la===dnpMDParser.AUTHOR_BIO) {
-            this.state = 165;
-            this.authorBio();
-        }
-
-        this.state = 175;
-        _la = this._input.LA(1);
-        if(_la===dnpMDParser.NL) {
-            this.state = 168;
+        this.state = 171;
+        this._errHandler.sync(this);
+        var la_ = this._interp.adaptivePredict(this._input,21,this._ctx);
+        if(la_===1) {
+            this.state = 164;
             this.newlines();
-            this.state = 172;
+            this.state = 168;
             this._errHandler.sync(this);
             _la = this._input.LA(1);
             while(_la===dnpMDParser.LABEL) {
-                this.state = 169;
+                this.state = 165;
                 this.literatureEntries();
-                this.state = 174;
+                this.state = 170;
                 this._errHandler.sync(this);
                 _la = this._input.LA(1);
             }
+
+        }
+        this.state = 176;
+        _la = this._input.LA(1);
+        if(_la===dnpMDParser.NL) {
+            this.state = 173;
+            this.newlines();
+            this.state = 174;
+            this.authorBio();
         }
 
     } catch (re) {
@@ -2055,10 +1893,6 @@ LiteratureEntriesContext.prototype.newlines = function() {
     return this.getTypedRuleContext(NewlinesContext,0);
 };
 
-LiteratureEntriesContext.prototype.EOF = function() {
-    return this.getToken(dnpMDParser.EOF, 0);
-};
-
 LiteratureEntriesContext.prototype.enterRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.enterLiteratureEntries(this);
@@ -2069,14 +1903,6 @@ LiteratureEntriesContext.prototype.exitRule = function(listener) {
     if(listener instanceof dnpMDParserListener ) {
         listener.exitLiteratureEntries(this);
 	}
-};
-
-LiteratureEntriesContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitLiteratureEntries(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
 };
 
 
@@ -2090,21 +1916,10 @@ dnpMDParser.prototype.literatureEntries = function() {
     this.enterRule(localctx, 40, dnpMDParser.RULE_literatureEntries);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 177;
+        this.state = 178;
         this.literatureEntry();
-        this.state = 180;
-        switch(this._input.LA(1)) {
-        case dnpMDParser.NL:
-            this.state = 178;
-            this.newlines();
-            break;
-        case dnpMDParser.EOF:
-            this.state = 179;
-            this.match(dnpMDParser.EOF);
-            break;
-        default:
-            throw new antlr4.error.NoViableAltException(this);
-        }
+        this.state = 179;
+        this.newlines();
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
 	        localctx.exception = re;
@@ -2151,14 +1966,6 @@ AuthorBioContext.prototype.exitRule = function(listener) {
 	}
 };
 
-AuthorBioContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitAuthorBio(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2170,7 +1977,7 @@ dnpMDParser.prototype.authorBio = function() {
     this.enterRule(localctx, 42, dnpMDParser.RULE_authorBio);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 182;
+        this.state = 181;
         this.match(dnpMDParser.AUTHOR_BIO);
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
@@ -2222,14 +2029,6 @@ LiteratureEntryContext.prototype.exitRule = function(listener) {
 	}
 };
 
-LiteratureEntryContext.prototype.accept = function(visitor) {
-    if ( visitor instanceof dnpMDParserVisitor ) {
-        return visitor.visitLiteratureEntry(this);
-    } else {
-        return visitor.visitChildren(this);
-    }
-};
-
 
 
 
@@ -2241,9 +2040,9 @@ dnpMDParser.prototype.literatureEntry = function() {
     this.enterRule(localctx, 44, dnpMDParser.RULE_literatureEntry);
     try {
         this.enterOuterAlt(localctx, 1);
-        this.state = 184;
+        this.state = 183;
         this.match(dnpMDParser.LABEL);
-        this.state = 185;
+        this.state = 184;
         this.match(dnpMDParser.LITERATURE_CONTENT);
     } catch (re) {
     	if(re instanceof antlr4.error.RecognitionException) {
