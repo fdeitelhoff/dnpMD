@@ -1,5 +1,6 @@
 var dnpMDParserListener = require('./dnpMD/dnpMDParserListener.js').dnpMDParserListener;
 var uuid = require('node-uuid');
+var fs = require("fs");
 
 var dnpMDTreeListener = function() {
     dnpMDParserListener.call(this);
@@ -24,6 +25,16 @@ dnpMDTreeListener.prototype.constructor = dnpMDTreeListener;
 
 dnpMDTreeListener.prototype.enterDnpMD = function() {
     this.documentElements = {};
+
+    this.listings = [];
+    this.images = [];
+
+    this.listingCount = 0;
+    this.imageCount = 0;
+
+    this.labels = {};
+    this.labels.listings = {};
+    this.labels.images = {};
 };
 
 dnpMDTreeListener.prototype.exitDnpMD = function() {
@@ -134,7 +145,33 @@ dnpMDTreeListener.prototype.exitListing = function(ctx) {
         }
     });
 
-    this.documentElements.bodyElements.push({id: uuid.v4(), elements: elements, external: externalListing, type: "listing"});
+    this.listingCount++;
+
+    var listing = {id: uuid.v4(), elements: elements, external: externalListing, number: this.listingCount,
+        type: "listing"};
+
+    if (listing.elements.label != undefined) {
+        this.labels.listings[listing.elements.label.content]
+            = {id: listing.id, number: this.listingCount, label: listing.elements.label.content};
+    }
+
+    if (listing.external) {
+        var data = fs.readFileSync(listing.elements.path.content);
+        var lines = data.toString().split('\n');
+
+        if (lines.length > 5) {
+            lines = lines.slice(0,5);
+
+            lines.push("");
+            lines.push("...");
+        }
+
+        listing.elements.source.content = lines.join("\n").toString();
+    }
+
+    this.listings.push(listing);
+
+    this.documentElements.bodyElements.push(listing);
 };
 
 dnpMDTreeListener.prototype.exitImage = function(ctx) {
@@ -154,7 +191,18 @@ dnpMDTreeListener.prototype.exitImage = function(ctx) {
         }
     });
 
-    this.documentElements.bodyElements.push({id: uuid.v4(), elements: elements, type: "image"});
+    this.imageCount++;
+
+    var image = {id: uuid.v4(), elements: elements, number: this.imageCount, type: "image"};
+
+    if (image.elements.label != undefined) {
+        this.labels.images[image.elements.label.content]
+            = {id: image.id, number: this.imageCount, label: image.elements.label.content};
+    }
+
+    this.images.push(image);
+
+    this.documentElements.bodyElements.push(image);
 };
 
 module.exports.dnpMDTreeListener = dnpMDTreeListener;

@@ -24,7 +24,9 @@ app.service('dnpMDService', function($rootScope) {
         self.documentOutline = documentElements;
         self.errors = self.errorListener.errors;
 
-        self.processListingsAndImages();
+        self.listings = treeListener.listings;
+        self.images = treeListener.images;
+        self.labels = treeListener.labels;
 
         $rootScope.$broadcast('outlineCompleted');
         self.documentErrors();
@@ -49,55 +51,5 @@ app.service('dnpMDService', function($rootScope) {
         var tree = parser.dnpMD();
 
         antlr4.tree.ParseTreeWalker.DEFAULT.walk(treeListener, tree);
-    };
-
-    // Maybe move to a dedicated file?
-    // Move to dnpMDTreeListener as part of the main language processing (listings, images, labels).
-    this.processListingsAndImages = function () {
-        this.listings = [];
-        this.images = [];
-        this.labels.listings = {};
-        this.labels.images = {};
-
-        var listingCount = 0;
-        var imageCount = 0;
-
-        var self = this;
-        this.documentOutline.bodyElements.forEach(function (element) {
-            if (element.type == "listing") {
-                listingCount++;
-
-                if (element.elements.label != undefined) {
-                    self.labels.listings[element.elements.label.content]
-                        = {id: element.id, number: listingCount, label: element.elements.label.content};
-                }
-
-                if (element.external) {
-                    var data = fs.readFileSync(element.elements.path.content);
-                    var lines = data.toString().split('\n');
-
-                    if (lines.length > 5) {
-                        lines = lines.slice(0,5);
-
-                        lines.push("");
-                        lines.push("...");
-                    }
-
-                    element.elements.source.content =  lines.join("\n").toString();
-                }
-
-                self.listings.push(element);
-
-            } else if (element.type == "image") {
-                imageCount++;
-
-                if (element.elements.label != undefined) {
-                    self.labels.images[element.elements.label.content]
-                        = {id: element.id, number: imageCount, label: element.elements.label.content};
-                }
-
-                self.images.push(element);
-            }
-        });
     };
 });
