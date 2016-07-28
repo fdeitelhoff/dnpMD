@@ -6,8 +6,16 @@
     left: 0;
 }
 
+.pane-document {
+    position: relative;
+    overflow-y: auto;
+    flex: 1;
+    background-color: lightgray;
+}
+
 .pane-right {
-    min-width: 20%;
+    min-width: 15%;
+    max-width: 15%;
     border-left: 1px solid #ddd;
 }
 
