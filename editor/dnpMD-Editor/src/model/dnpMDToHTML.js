@@ -67,13 +67,6 @@ dnpMDToHTML.prototype.transform = function(documentOutline, labels) {
             html += "</p>";
 
         } else if (element.type == "listing") {
-            var number = "";
-
-            if (element.elements.label != undefined) {
-                var label = self.labels.listings[element.elements.label.content];
-                number = "Listing: " + label.number;
-            }
-
             html = "<div class='listing'>";
 
             html += "<pre class='listing-content'>";
@@ -83,19 +76,12 @@ dnpMDToHTML.prototype.transform = function(documentOutline, labels) {
             html += "</pre>";
 
             if (element.elements.caption != undefined) {
-                html += "<h5 class='listing-caption'>" + number + element.elements.caption.content + "</h5>";
+                html += "<h5 class='listing-caption'>Listing " + element.number + ": " + element.elements.caption.content + "</h5>";
             }
 
             html += "</div>";
 
         } else if (element.type == "image") {
-            var number = "";
-
-            if (element.elements.label != undefined) {
-                var label = self.labels.images[element.elements.label.content];
-                number = "Abbildung: " + label.number;
-            }
-
             html = "<div class='image'>";
 
             if (element.elements.path != undefined) {
@@ -103,7 +89,7 @@ dnpMDToHTML.prototype.transform = function(documentOutline, labels) {
             }
 
             if (element.elements.caption != undefined) {
-                html += "<h5 class='image-caption'>" + number + element.elements.caption.content + "</h5>";
+                html += "<h5 class='image-caption'>Abbildung " + element.number + ": " + element.elements.caption.content + "</h5>";
             }
 
             html += "</div>";

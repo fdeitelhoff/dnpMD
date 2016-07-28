@@ -1,0 +1,11 @@
+<ul class="list-group">
+    <li class="list-group-header">
+        <input class="form-control" type="text" placeholder="Search..." ng-model="searchOutline">
+    </li>
+    <li class="list-group-item" ng-repeat="documentElement in documentOutline | filter:searchOutline">
+        <div class="media-body">
+            <p>{{documentElement.type}}</p>
+            <strong ng-bind-html="documentElement.content"></strong>
+        </div>
+    </li>
+</ul>

@@ -1,6 +1,5 @@
 app.controller('DocumentRenderCtrl', function($scope, dnpMDService) {
 
-    // Maybe move to the dnpMDService?
     var dnpMDToHTML = require('./app/model/dnpMDToHTML.js');
     var transformToHTML = new dnpMDToHTML.dnpMDToHTML();
 
