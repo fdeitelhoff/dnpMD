@@ -1,9 +1,9 @@
 .document {
-    background-color: lightgray;
+
 }
 
 .head {
-    /*border: 1px solid black;*/
+
 }
 
 .body {
@@ -11,15 +11,18 @@
 }
 
 .subheadline {
-    font-size: medium;
+    font-size: 14px;
+    margin: 0 0 -10px;
 }
 
 .headline {
-    font-size: xx-large;
+    font-size: 36px;
+    margin: 0;
 }
 
 .lead {
-    font-size: large;
+    font-size: 18px;
+    margin: -15px 0 20px;
 }
 
 .paragraph {

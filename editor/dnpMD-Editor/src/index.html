@@ -20,57 +20,23 @@
                 <div id="editor" ui-ace="{mode: 'my-mode', theme: 'monokai', useWrapMode : true,
                  onChange: documentChanged}" ng-model="documentSource"></div>
             </div>
-            <div class="pane" ng-controller="DocumentRenderCtrl">
+            <div class="pane-document" ng-controller="DocumentRenderCtrl">
                 <ng-include src="documentRenderTemplate"></ng-include>
             </div>
             <div class="pane-right">
-                <div class="pane-outline" ng-controller="DocumentOutlineCtrl">
-                    <ul class="list-group">
-                        <li class="list-group-header">
-                            <input class="form-control" type="text" placeholder="Search..." ng-model="searchOutline">
-                        </li>
-                        <li class="list-group-item" ng-repeat="documentElement in documentOutline | filter:searchOutline">
-                            <div class="media-body">
-                                <p>{{documentElement.type}}</p>
-                                <strong ng-bind-html="documentElement.content"></strong>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pane-listings" ng-controller="ListingsOutlineCtrl">
-                    <ul class="list-group">
-                        <li class="list-group-header">
-                            <input class="form-control" type="text" placeholder="Search..." ng-model="searchListings">
-                        </li>
-                        <li class="list-group-item" ng-repeat="listing in listingsOutline | filter:searchListings">
-                            <div class="media-body">
-                                <strong>{{listing.elements.caption.content}}</strong>
-                                <p>{{listing.elements.path.content}}</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <div class="pane-images" ng-controller="ImagesOutlineCtrl">
-                    <ul class="list-group">
-                        <li class="list-group-header">
-                            <input class="form-control" type="text" placeholder="Search..." ng-model="searchImages">
-                        </li>
-                        <li class="list-group-item" ng-repeat="images in imagesOutline | filter:searchImages">
-                            <div class="media-body">
-                                <strong>{{images.elements.caption.content}}</strong>
-                                <p>{{images.elements.path.content}}</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                <div class="pane-outline" ng-controller="DocumentOutlineCtrl"
+                     ng-include="'app/views/outline/document-outline.html'"></div>
+
+                <div class="pane-listings" ng-controller="ListingsOutlineCtrl"
+                     ng-include="'app/views/outline/listings-outline.html'"></div>
+
+                <div class="pane-images" ng-controller="ImagesOutlineCtrl"
+                     ng-include="'app/views/outline/images-outline.html'"></div>
             </div>
         </div>
     </div>
-    <div class="pane-error" ng-controller="ErrorCtrl">
-
-        <div ng-include="'app/views/error/error-overview.html'"></div>
-
-    </div>
+    <div class="pane-error" ng-controller="ErrorCtrl"
+         ng-include="'app/views/error/error-overview.html'"></div>
 </div>
 
 </body>
