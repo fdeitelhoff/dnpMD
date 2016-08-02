@@ -1,4 +1,4 @@
-var antlr4 = require('antlr4/index');
+var antlr4 = require('./../../lib/antlr4/index');
 
 var dnpMDErrorListener = function() {
     antlr4.error.ErrorListener.call(this);
