@@ -1,6 +1,6 @@
 // Generated from E:/Git/dnpMD/language/dnpMD-Language/src/de/twainsoft/dnpMD/grammar\dnpMDParser.g4 by ANTLR 4.5.3
 // jshint ignore: start
-var antlr4 = require('antlr4/index');
+var antlr4 = require('./../../../lib/antlr4/index');
 var dnpMDParserListener = require('./dnpMDParserListener').dnpMDParserListener;
 var grammarFileName = "dnpMDParser.g4";
 

@@ -10,7 +10,7 @@ app.service('dnpMDService', function($rootScope) {
 
     var fs = require("fs");
 
-    var antlr4 = require('antlr4/index');
+    var antlr4 = require('./lib/antlr4/index');
     var dnpMDLexer = require('./app/model/dnpMD/dnpMDLexer.js');
     var dnpMDParser = require('./app/model/dnpMD/dnpMDParser.js');
 
